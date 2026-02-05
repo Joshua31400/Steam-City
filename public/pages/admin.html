@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Website for Steam City, a platform for gaming enthusiasts. Admin page for managing users, games, and content on the platform.">
+    <title>Steam City | Admin</title>
+</head>
+<body>
+<header class="main-header">
+    <div class="brand">
+        <h1>ADMIN</h1>
+    </div>
+    <nav class="user-nav" aria-label="User Menu">
+        <ul>
+            <li><a href="/home"><img src="#" alt="Home"></a></li>
+            <li><a href="/profile"><img src="#" alt="Profile"></a></li>
+            <li><button type="button"><img src="#" alt="Logout"></button></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="admin-content">
+    <section class="admin-stats">
+        <p><strong>Total Users:</strong> <span class="stat-number">1 458</span></p>
+        <p><strong>Total Game:</strong> <span class="stat-number">854</span></p>
+    </section>
+
+    <div class="admin-panels">
+        <section class="admin-section users-management">
+            <h2 class="sr-only">Users Management</h2> <table class="data-table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Pass Word</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>012345678</td>
+                <td>John Doe</td>
+                <td>john.doe@gmail.com</td>
+                <td>********</td>
+                <td>Admin</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>876543210</td>
+                <td>Pedro Martins</td>
+                <td>pedro.martins@gmail.com</td>
+                <td>********</td>
+                <td>Lambda</td>
+                <td class="actions-cell">
+                    <button type="button" aria-label="Edit User"><img src="#" alt=""></button>
+                    <button type="button" aria-label="Delete User" class="btn-delete"><img src="#" alt=""></button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>93761085</td>
+                <td>Joshua Budgen</td>
+                <td>joshua.budgen@gmail.com</td>
+                <td>********</td>
+                <td>Admin</td>
+                <td></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="6" class="add-row">
+                    <button type="button" aria-label="Add new user" class="btn-add-circle">
+                        <img src="#" alt="+">
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        </section>
+
+        <section class="admin-section games-management">
+            <h2 class="sr-only">Games Management</h2>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th scope="col">Game Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Achievement</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Fortnite</td>
+                    <td>Online Battle Royal</td>
+                    <td>Last survivor</td>
+                    <td>TPS</td>
+                    <td class="actions-cell">
+                        <button type="button" aria-label="Edit Game"><img src="#" alt=""></button>
+                        <button type="button" aria-label="Delete Game" class="btn-delete"><img src="#" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Call of Duty</td>
+                    <td>War and campain</td>
+                    <td>Sanguinaire</td>
+                    <td>FPS</td>
+                    <td class="actions-cell">
+                        <button type="button" aria-label="Edit Game"><img src="#" alt=""></button>
+                        <button type="button" aria-label="Delete Game" class="btn-delete"><img src="#" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Minecraft</td>
+                    <td>Open World survival</td>
+                    <td>Minor</td>
+                    <td>FPS / TPS</td>
+                    <td class="actions-cell">
+                        <button type="button" aria-label="Edit Game"><img src="#" alt=""></button>
+                        <button type="button" aria-label="Delete Game" class="btn-delete"><img src="#" alt=""></button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" class="add-row">
+                        <button type="button" aria-label="Add new game" class="btn-add-circle">
+                            <img src="#" alt="+">
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </section>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website for Steam City, a platform for gaming enthusiasts. Sign in to create a new account and join the gaming community.">
+    <title>Steam City | Sign-in</title>
+</head>
+<body>
+<main class="auth-container">
+    <section class="auth-form">
+        <h1>Sign-in</h1>
+        <form action="/register" method="POST">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="john.doe@gmail.com"
+                        autocomplete="email"
+                        required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Type here..."
+                        autocomplete="new-password"
+                        minlength="8"
+                        required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input
+                        type="password"
+                        id="confirm-password"
+                        name="confirm_password"
+                        placeholder="Type here..."
+                        autocomplete="new-password"
+                        required>
+            </div>
+
+            <button type="submit" class="btn-primary">SIGN-IN</button>
+
+            <div class="social-login">
+                <button type="button" class="btn-google">
+                    <img src="#" alt="" aria-hidden="true"> SIGN-IN WITH GOOGLE
+                </button>
+
+                <button type="button" class="btn-github">
+                    <img src="#" alt="" aria-hidden="true"> SIGN-IN WITH GITHUB
+                </button>
+            </div>
+
+            <div class="auth-switch">
+                <a href="/login">Already have an account ?</a>
+            </div>
+        </form>
+    </section>
+
+    <aside class="auth-visual" aria-label="Décoration Vaporwave"></aside>
+</main>
+</body>
+</html>

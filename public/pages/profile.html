@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Website for Steam City, a platform for gaming enthusiasts. Profile page where users can view and edit their account information, game library, and preferences.">
+    <title>Steam City | Profile</title>
+</head>
+<body>
+<header class="main-header">
+    <div class="brand">
+        <h1>PROFILE</h1>
+    </div>
+
+    <nav class="user-nav" aria-label="User Menu">
+        <ul>
+            <li>
+                <a href="/home" aria-label="Home">
+                    <img src="#" alt="" aria-hidden="true">
+                </a>
+            </li>
+            <li>
+                <a href="/profile" aria-current="page" aria-label="My Profile">
+                    <img src="#" alt="" aria-hidden="true">
+                </a>
+            </li>
+            <li>
+                <button type="button" aria-label="Logout">
+                    <img src="#" alt="" aria-hidden="true">
+                </button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main class="profile-content">
+    <section class="user-overview">
+        <div class="user-details">
+            <h2>Details</h2>
+            <div class="detail-group">
+                <span class="label">Email:</span>
+                <span class="value">john.doe@gmail.com</span>
+            </div>
+        </div>
+
+        <div class="user-identity">
+            <figure class="avatar-wrapper">
+                <img src="#" alt="John Doe's Avatar" class="avatar-img">
+            </figure>
+            <h2>John Doe</h2>
+            <div class="user-badges">
+                <a href="/profile/edit" class="badge btn-edit">EDIT</a>
+                <span class="badge tag-admin">ADMIN</span>
+            </div>
+        </div>
+
+        <div class="user-achievements">
+            <h2>Last Achievement</h2>
+            <div class="achievements-carousel">
+                <button type="button" class="nav-arrow prev" aria-label="Previous achievements">
+                    <img src="#" alt="" aria-hidden="true">
+                </button>
+
+                <ul class="achievements-list">
+                    <li class="achievement-item">
+                        <img src="#" alt="" aria-hidden="true">
+                        <span class="ach-name">Sanguin</span>
+                        <span class="ach-date">Yesterday</span>
+                    </li>
+                    <li class="achievement-item">
+                        <img src="#" alt="" aria-hidden="true">
+                        <span class="ach-name">Infatigable</span>
+                        <span class="ach-date">2 days ago</span>
+                    </li>
+                    <li class="achievement-item">
+                        <img src="#" alt="" aria-hidden="true">
+                        <span class="ach-name">100%</span>
+                        <span class="ach-date">Last Week</span>
+                    </li>
+                    <li class="achievement-item">
+                        <img src="#" alt="" aria-hidden="true">
+                        <span class="ach-name">Mineur fou</span>
+                        <span class="ach-date">1 year ago</span>
+                    </li>
+                </ul>
+
+                <button type="button" class="nav-arrow next" aria-label="Next achievements">
+                    <img src="#" alt="" aria-hidden="true">
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-games">
+        <h2>My Games</h2>
+
+        <div class="games-carousel-wrapper">
+            <button type="button" class="nav-arrow prev" aria-label="Previous games">
+                <img src="#" alt="" aria-hidden="true">
+            </button>
+
+            <div class="games-list">
+                <article class="game-card mini-card">
+                    <figure class="card-image">
+                        <img src="#" alt="Game Cover">
+                    </figure>
+
+                    <div class="card-content">
+                        <h3>Game Name</h3>
+                        <div class="game-stats">
+                            <p>Start date: <time datetime="2038-02-02">02/08/2038</time></p>
+                            <p>Time play: 34h</p>
+                        </div>
+                        <a href="/game/details" class="link-details">Details</a>
+                    </div>
+
+                    <div class="card-actions">
+                        <button type="button" aria-label="Edit game stats">
+                            <img src="#" alt="" aria-hidden="true">
+                        </button>
+                        <button type="button" aria-label="Delete game" class="btn-delete">
+                            <img src="#" alt="" aria-hidden="true">
+                        </button>
+                    </div>
+                </article>
+
+                <article class="game-card mini-card">
+                    <figure class="card-image">
+                        <img src="#" alt="Game Cover">
+                    </figure>
+                    <div class="card-content">
+                        <h3>Game Name</h3>
+                        <div class="game-stats">
+                            <p>Start date: <time datetime="2038-02-02">02/08/2038</time></p>
+                            <p>Time play: 34h</p>
+                        </div>
+                        <a href="/game/details" class="link-details">Details</a>
+                    </div>
+                    <div class="card-actions">
+                        <button type="button" aria-label="Edit"><img src="#" alt=""></button>
+                        <button type="button" aria-label="Delete"><img src="#" alt=""></button>
+                    </div>
+                </article>
+
+                <div class="add-game-card">
+                    <button type="button" aria-label="Add a new game">
+                        <span class="plus-sign">+</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <button type="button" class="nav-arrow next" aria-label="Next games">
+                <img src="#" alt="" aria-hidden="true">
+            </button>
+        </div>
+    </section>
+</main>
+</body>
+</html>

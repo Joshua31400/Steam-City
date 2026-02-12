@@ -9,7 +9,7 @@ class GameController {
     private $db;
     private $gameModel;
     private $userGameModel;
-
+    // Initialize database connection and models
     public function __construct() {
         $database = new Database();
         $this->db = $database->getConnection();
@@ -17,17 +17,16 @@ class GameController {
         $this->userGameModel = new UserGame($this->db);
     }
 
-    // Afficher la page home avec tous les jeux
+    // Display the home page with the list of games
     public function showHome() {
         AuthMiddleware::requireAuth();
 
         $games = $this->gameModel->getAll();
 
-        // Passer les données aux vues (tu devras modifier tes HTML en PHP)
         require PUBLIC_PATH . '/pages/home.html';
     }
 
-    // Ajouter un jeu à la bibliothèque d'un utilisateur
+    // Add a game to the user's library with random data for playtime and dates
     public function addToLibrary() {
         AuthMiddleware::requireAuth();
 
@@ -58,7 +57,7 @@ class GameController {
         redirect('/profile');
     }
 
-    // Supprimer un jeu de la bibliothèque
+    // Delete a game from the user's library
     public function removeFromLibrary() {
         AuthMiddleware::requireAuth();
 

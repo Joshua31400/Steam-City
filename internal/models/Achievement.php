@@ -1,7 +1,8 @@
 <?php
 // Achievement model class to handle all database interactions related to achievements table
 // Achievements are linked to games and can be unlocked by users
-class Achievement {
+class Achievement
+{
     private $conn;
     private $table = 'achievements';
 
@@ -13,13 +14,15 @@ class Achievement {
 
     // Constructor to initialize the database connection
     // Usage: $achievement = new Achievement($db);
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Get all achievements for a specific game
     // Usage: $achievements = $achievement->getByGameId($gameId);
-    public function getByGameId($gameId) {
+    public function getByGameId($gameId)
+    {
         $query = "SELECT * FROM " . $this->table . " WHERE game_id = :game_id ORDER BY name";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':game_id', $gameId);
@@ -28,10 +31,30 @@ class Achievement {
         return $stmt->fetchAll();
     }
 
+    // Get all achievements unlocked by a specific user (for profile page)
+    // Requires a user_achievements table to track which user unlocked which achievement
+    // Usage: $achievements = $achievement->getUserAchievements($userId);
+    public function getUserAchievements($userId)
+    {
+        $query = "SELECT a.*, ua.unlocked_at, g.name as game_name
+              FROM user_achievements ua
+              JOIN " . $this->table . " a ON ua.achievement_id = a.id
+              JOIN games g ON a.game_id = g.id
+              WHERE ua.user_id = :user_id
+              ORDER BY ua.unlocked_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+
     // Get a single achievement by ID
     // This is used for admin editing and details pop-up
     // Usage: $data = $achievement->getById($id);
-    public function getById($id) {
+    public function getById($id)
+    {
         $query = "SELECT a.*, g.name as game_name 
                   FROM " . $this->table . " a
                   JOIN games g ON a.game_id = g.id
@@ -45,7 +68,8 @@ class Achievement {
 
     // Get all achievements (for admin)
     // Usage: $all = $achievement->getAll();
-    public function getAll() {
+    public function getAll()
+    {
         $query = "SELECT a.*, g.name as game_name 
                   FROM " . $this->table . " a
                   JOIN games g ON a.game_id = g.id
@@ -58,7 +82,8 @@ class Achievement {
 
     // Create a new achievement (admin only)
     // Usage: $achievement->create();
-    public function create() {
+    public function create()
+    {
         $query = "INSERT INTO " . $this->table . " 
                   (game_id, name, description, icon_url) 
                   VALUES (:game_id, :name, :description, :icon_url)";
@@ -75,7 +100,8 @@ class Achievement {
 
     // Update an existing achievement (admin only)
     // Usage: $achievement->update();
-    public function update() {
+    public function update()
+    {
         $query = "UPDATE " . $this->table . " 
                   SET game_id = :game_id, name = :name, 
                       description = :description, icon_url = :icon_url 
@@ -94,7 +120,8 @@ class Achievement {
 
     // Delete an achievement (admin only)
     // Usage: $achievement->delete($id);
-    public function delete($id) {
+    public function delete($id)
+    {
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);

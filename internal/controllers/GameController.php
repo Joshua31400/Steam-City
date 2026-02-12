@@ -23,7 +23,7 @@ class GameController {
 
         $games = $this->gameModel->getAll();
 
-        require PUBLIC_PATH . '/pages/home.html';
+        require PUBLIC_PATH . '/pages/home.php';
     }
 
     // Add a game to the user's library with random data for playtime and dates
@@ -41,7 +41,6 @@ class GameController {
             redirect('/home');
         }
 
-        // Générer des données random
         $this->userGameModel->user_id = $_SESSION['user_id'];
         $this->userGameModel->game_id = $gameId;
         $this->userGameModel->start_date = generateRandomDate();

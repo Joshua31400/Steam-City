@@ -6,8 +6,8 @@ require_once BASE_PATH . '/internal/controllers/ProfileController.php';
 require_once BASE_PATH . '/internal/controllers/AdminController.php';
 
 // Get the current request URI and remove query parameters for routing
-$request = $_SERVER['REQUEST_URI'];
-$request = strtok($request, '?'); // Remove query string for cleaner routing
+$request = $_SERVER['REQUEST_URI'] ?? '/';
+$request = parse_url($request, PHP_URL_PATH) ?? '/'; // Remove query string for cleaner routing
 
 // Routes mapping
 switch ($request) {

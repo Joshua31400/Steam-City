@@ -1,7 +1,5 @@
-CREATE
-DATABASE IF NOT EXISTS steam_city;
-USE
-steam_city;
+CREATE DATABASE IF NOT EXISTS steam_city;
+USE steam_city;
 
 CREATE TABLE users
 (

@@ -13,9 +13,8 @@ function formatAchievementDate($date)
     if ($diff->days < 365) return 'Last month';
     return $diff->y . ' year' . ($diff->y > 1 ? 's' : '') . ' ago';
 }
-
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

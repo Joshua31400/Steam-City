@@ -4,6 +4,7 @@ require_once BASE_PATH . '/internal/controllers/AuthController.php';
 require_once BASE_PATH . '/internal/controllers/GameController.php';
 require_once BASE_PATH . '/internal/controllers/ProfileController.php';
 require_once BASE_PATH . '/internal/controllers/AdminController.php';
+require_once BASE_PATH . '/internal/controllers/OAuthController.php';
 
 // Get the current request URI and remove query parameters for routing
 $request = $_SERVER['REQUEST_URI'] ?? '/';
@@ -36,6 +37,27 @@ switch ($request) {
     case '/logout':
         $controller = new AuthController();
         $controller->logout();
+        break;
+
+    // OAUTH ROUTES
+    case '/auth/google':
+        $controller = new OAuthController();
+        $controller->redirectToGoogle();
+        break;
+
+    case '/auth/google/callback':
+        $controller = new OAuthController();
+        $controller->handleGoogleCallback();
+        break;
+
+    case '/auth/github':
+        $controller = new OAuthController();
+        $controller->redirectToGithub();
+        break;
+
+    case '/auth/github/callback':
+        $controller = new OAuthController();
+        $controller->handleGithubCallback();
         break;
 
     // HOME & LIBRARY ROUTES

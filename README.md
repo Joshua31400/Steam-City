@@ -86,13 +86,44 @@ cp .env.example .env
    GITHUB_CLIENT_SECRET=your_github_client_secret
    GITHUB_REDIRECT_URI=http://localhost:8080/auth/github/callback
 ```
-**Step 5: Launch the Application**  
-Using PHP's built-in server:
-```bash
-php -S localhost:8000 -t public public/index.php
+**Step 5: Configure Environment Variables**
+
+1. Copiez le fichier `.env.example` et renommez-le en `.env`:
+```powershell
+Copy-Item ".env.example" ".env"
 ```
 
-Or use WAMP/MAMP and access via:
+2. Ouvrez `.env` et remplissez vos identifiants OAuth:
+```ini
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+GOOGLE_REDIRECT_URI=http://localhost:8080/auth/google/callback
+
+GITHUB_CLIENT_ID=your_github_client_id_here
+GITHUB_CLIENT_SECRET=your_github_client_secret_here
+GITHUB_REDIRECT_URI=http://localhost:8080/auth/github/callback
+```
+
+⚠️ **IMPORTANT**: Ne commitez **JAMAIS** le fichier `.env` sur Git! Il contient vos secrets. Seul `.env.example` est partagé.
+
+**Step 6: Launch the Application**  
+Depuis la racine du projet avec le routeur:
+```powershell
+php -S localhost:8080 -t public public/router.php
+```
+
+Ou depuis le dossier `public`:
+```powershell
+cd public
+php -S localhost:8080 router.php
+```
+
+Puis accédez à:
+```
+http://localhost:8080
+```
+
+Ou avec WAMP/MAMP:
 ```
 http://localhost/Steam-City/public/
 ```
@@ -174,6 +205,34 @@ Steam-City
 ![WAMP](https://img.shields.io/badge/WAMP-F70000.svg?style=for-the-badge&logo=wampserver&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=git&logoColor=white)
 ![OAuth2](https://img.shields.io/badge/OAuth2-3C873A.svg?style=for-the-badge&logo=auth0&logoColor=white)
+
+---
+
+## 👥 Fichiers à partager/ne pas partager
+
+### ✅ À POUSSER sur Git (fichiers du projet)
+- `README.md` - Documentation
+- `APACHE_SETUP.md` - Configuration Apache
+- `.env.example` - Template des variables d'environnement
+- `sql/database.sql` - Schéma de base de données
+- `public/router.php` - Routeur pour serveur PHP intégré
+- `public/pages/*.php` - Pages du site
+- `public/style/*.css` - Feuilles de style
+- `internal/` - Dossier complet (controllers, models, routes, helpers)
+- `config/constants.php`, `config/database.php`, `config/oauth.php` - Configuration
+
+### ❌ NE PAS POUSSER sur Git (fichiers locaux/sensibles)
+- **`.env`** - Contient les secrets OAuth - ⚠️ JAMAIS sur Git!
+- **`php.ini`** - Configuration PHP locale (chemin différent par développeur)
+- **`vendor/`** - Dépendances Composer (généré automatiquement)
+- **`.idea/`** - Configuration IDE locale
+- **Fichiers temporaires** - Cache, logs, etc.
+
+### 📝 Comment gérer .env.example vs .env
+
+1. **`.env.example`** - Partagé sur Git (sans valeurs secrètes)
+2. **`.env`** - Chaque développeur crée son propre (à partir de .env.example)
+3. **`.gitignore`** - Assure que `.env` n'est jamais commité
 
 ---
 

@@ -1,0 +1,206 @@
+/* ==========================================================================
+   1. IMPORTS & VARIABLES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --text-main: #1a1a1a;
+    --neon-pink: #ff71ce;
+    --btn-black: #000000;
+    
+    --transition-speed: 0.3s;
+    --glass-blur: 15px;
+}
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* Background Video */
+.wallpaper-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    filter: brightness(0.8);
+}
+
+/* ==========================================================================
+   3. LAYOUT & GLASSMorphism
+   ========================================================================== */
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligné au début du flex */
+    padding-left: 10%;           /* Décalage vers la gauche pour le "centré-gauche" */
+    height: 100vh;
+}
+
+.auth-form {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem 3rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    animation: fadeInSlide 0.8s ease-out forwards;
+}
+
+/* ==========================================================================
+   4. ELEMENTS DE FORMULAIRE
+   ========================================================================== */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.input-group input:focus {
+    background: #fff;
+    border-color: var(--neon-pink);
+    box-shadow: 
+        inset 0 -1em 2em rgba(183, 228, 253, 0.3),
+        0 0 0 2px white,
+        0 0 1.5em rgba(255, 1, 136, 0.4);
+}
+
+/* ==========================================================================
+   5. BOUTONS & INTERACTIONS
+   ========================================================================== */
+
+/* Bouton SIGN-IN Principal */
+.btn-primary {
+    width: 100%;
+    background: var(--btn-black);
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #222;
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    background: #444;
+    text-shadow: 0 1px 3px rgb(68, 240, 249);
+    box-shadow: inset 0 2px 7px rgba(218, 84, 204, 0.98), 
+                0 2px 5px rgba(110, 228, 246, 0.8);
+}
+
+/* Social Buttons */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn-google, .btn-github {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.btn-google:hover, .btn-github:hover {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 113, 206, 0.3);
+}
+
+.btn-google:active, .btn-github:active {
+    transform: scale(0.95) !important;
+    background: rgba(255, 113, 206, 0.2) !important;
+    text-shadow: 0 0 8px rgb(96, 255, 244) !important;
+}
+
+/* Auth Switch Link */
+.auth-switch {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.auth-switch a {
+    color: var(--text-main);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: all var(--transition-speed);
+}
+
+.auth-switch a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 113, 206, 0.6);
+}
+
+/* ==========================================================================
+   6. ANIMATIONS
+   ========================================================================== */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+}

@@ -20,6 +20,8 @@ function formatAchievementDate($date)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam City | Profile</title>
+   <link rel="stylesheet" href="/style/root.css">
+   <link rel="stylesheet" href="/style/profile.css">
 </head>
 <body>
 <header class="main-header">

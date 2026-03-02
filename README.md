@@ -23,7 +23,7 @@ Observer quelque chose comme: `C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Pa
 Copy-Item "C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\php.ini-development" "C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\php.ini"
 ```
 
-**En français:** On copie un fichier modèle et on le renomme en `php.ini`
+**En résumé:** On copie un fichier modèle et on le renomme en `php.ini`
 
 #### Étape 3: Dire à PHP où sont ses outils
 Ouvre le fichier `php.ini` (trouvé à l'étape 1) et chercher la ligne qui commence par `;extension_dir`.
@@ -44,7 +44,7 @@ Dans le même fichier `php.ini`, chercher `;extension=pdo_mysql` et le changer e
 extension=php_pdo_mysql
 ```
 
-**En français:** On enlève le `;` (qui veut dire "ne lis pas cette ligne")
+**En résumé:** On enlève le `;` (qui veut dire "ne lis pas cette ligne")
 
 #### Étape 5: Vérifier que ça marche
 ```powershell

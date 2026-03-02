@@ -150,32 +150,48 @@ h1 {
     margin: 20px 0;
 }
 
+/* Social Buttons Base */
 .btn-google, .btn-github {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.7);
+    gap: 10px;
+    padding: 10px;
     border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 8px;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
+    color: var(--text-main);
     cursor: pointer;
-    transition: all var(--transition-speed);
+    transition: all 0.3s ease;
 }
 
+/* Social Buttons Hover */
 .btn-google:hover, .btn-github:hover {
+    background: rgba(255, 255, 255, 0.9);
     border-color: var(--neon-pink);
     color: var(--neon-pink);
-    box-shadow: 0 0 15px rgba(255, 113, 206, 0.3);
+    box-shadow: 0 0 15px rgba(255, 113, 206, 0.4), 
+                inset 0 0 5px rgba(255, 113, 206, 0.2);
+    transform: translateY(-2px);
 }
 
+.btn-google:hover img, .btn-github:hover img {
+    filter: drop-shadow(0 0 2px rgba(255, 113, 206, 0.5));
+}
+
+/* Social Buttons Active (Click) */
 .btn-google:active, .btn-github:active {
-    transform: scale(0.95) !important;
-    background: rgba(255, 113, 206, 0.2) !important;
-    text-shadow: 0 0 8px rgb(96, 255, 244) !important;
+    transform: translateY(0) scale(0.95) !important; 
+    background: rgba(255, 113, 206, 0.4) !important;
+    color: white !important;
+    text-shadow: 0.1em 0.1em 10px rgb(96, 255, 244) !important;
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px rgba(196, 239, 253, 0.966), 
+                inset 0 3px 5px rgba(0, 0, 0, 0.2) !important;
+    transition: transform 0.05s ease-out;
 }
 
 /* Auth Switch Link */
@@ -197,6 +213,13 @@ h1 {
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 113, 206, 0.6);
 }
 
+/* Effet Active : Clic "enfoncé" */
+.auth-switch a:active {
+    transform: translateY(1px) scale(0.95);
+    color: #83ecfc;
+    text-shadow: 0 0 10px rgb(0, 221, 255);
+    transition: transform 0.05s;
+}
 /* ==========================================================================
    6. ANIMATIONS
    ========================================================================== */

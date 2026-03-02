@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam City | Admin</title>
-    <link rel="stylesheet" href="/style/root.css">
+    <script src="/assets/js/admin-modal.js"></script>
 </head>
 <body>
 <header class="main-header">
@@ -122,7 +122,6 @@
                 <option value="admin">Admin</option>
             </select>
         </div>
-        <div id="passwordField"><label>Password</label><input type="password" name="password" id="userPassword" minlength="8"></div>
         <button type="submit">Save</button>
         <button type="button" onclick="closeUserModal()">Cancel</button>
     </form>
@@ -135,64 +134,11 @@
         <input type="hidden" name="game_id" id="gameId">
         <div><label>Name</label><input type="text" name="name" id="gameName" required></div>
         <div><label>Description</label><textarea name="description" id="gameDescription" required></textarea></div>
-        <div><label>Type</label><input type="text" name="type" id="gameType" required></div>
-        <div><label>Image URL</label><input type="text" name="image_url" id="gameImage"></div>
+        <div><label>Type</label><input type="text" name="type" id="gameType" placeholder="TPS/ FPS ..." required></div>
+        <div><label>Image URL</label><input type="text" name="image_url" id="gameImage" placeholder="/assets/images/games/fortnite.webp"></div>
         <button type="submit">Save</button>
         <button type="button" onclick="closeGameModal()">Cancel</button>
     </form>
 </div>
-
-<script>
-    /* TEST (FUTURE INTERFACE) */
-    function showAddUserModal() {
-        document.getElementById('userModalTitle').textContent = 'Add User';
-        document.getElementById('userForm').action = '/admin/user/create';
-        document.getElementById('userId').value = '';
-        document.getElementById('userName').value = '';
-        document.getElementById('userEmail').value = '';
-        document.getElementById('userRole').value = 'user';
-        document.getElementById('userPassword').value = '';
-        document.getElementById('passwordField').style.display = 'block';
-        document.getElementById('userPassword').required = true;
-        document.getElementById('userModal').style.display = 'block';
-    }
-
-    function editUser(id, username, email, role) {
-        document.getElementById('userModalTitle').textContent = 'Edit User';
-        document.getElementById('userForm').action = '/admin/user/update';
-        document.getElementById('userId').value = id;
-        document.getElementById('userName').value = username;
-        document.getElementById('userEmail').value = email;
-        document.getElementById('userRole').value = role;
-        document.getElementById('passwordField').style.display = 'none';
-        document.getElementById('userPassword').required = false;
-        document.getElementById('userModal').style.display = 'block';
-    }
-
-    function closeUserModal() { document.getElementById('userModal').style.display = 'none'; }
-
-    function showAddGameModal() {
-        document.getElementById('gameModalTitle').textContent = 'Add Game';
-        document.getElementById('gameForm').action = '/admin/game/create';
-        document.getElementById('gameId').value = '';
-        document.getElementById('gameName').value = '';
-        document.getElementById('gameDescription').value = '';
-        document.getElementById('gameType').value = '';
-        document.getElementById('gameImage').value = '';
-        document.getElementById('gameModal').style.display = 'block';
-    }
-
-    function editGame(id, name, description, type) {
-        document.getElementById('gameModalTitle').textContent = 'Edit Game';
-        document.getElementById('gameForm').action = '/admin/game/update';
-        document.getElementById('gameId').value = id;
-        document.getElementById('gameName').value = name;
-        document.getElementById('gameDescription').value = description;
-        document.getElementById('gameType').value = type;
-        document.getElementById('gameModal').style.display = 'block';
-    }
-
-    function closeGameModal() { document.getElementById('gameModal').style.display = 'none'; }
-</script>
 </body>
 </html>

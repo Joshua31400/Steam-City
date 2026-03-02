@@ -3,6 +3,9 @@
 define('BASE_PATH', dirname(__DIR__));
 define('PUBLIC_PATH', BASE_PATH . '/public');
 
+// Charge Oauth config (used in OAuthController and providers)
+require_once BASE_PATH . '/config/oauth.php';
+
 // Security
 define('PASSWORD_MIN_LENGTH', 8);
 

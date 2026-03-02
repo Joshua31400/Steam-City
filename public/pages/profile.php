@@ -50,7 +50,7 @@ function formatAchievementDate($date)
             <h2><?= escape($user['username']) ?></h2>
             <a href="/profile/edit">EDIT</a>
             <?php if ($user['role'] === 'admin'): ?>
-                <span>ADMIN</span>
+                <a href="/admin">ADMIN</a>
             <?php endif; ?>
         </div>
 

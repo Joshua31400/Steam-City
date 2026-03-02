@@ -49,6 +49,8 @@ class Game {
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':description', $this->description);
         $stmt->bindParam(':type', $this->type);
+        // For simplicity, we allow admins to provide an image URL directly. In a real app, you would handle file uploads and storage.
+        // URL: /assets/images/games/filename.png .jpg .jpeg .webp
         $stmt->bindParam(':image_url', $this->image_url);
 
         return $stmt->execute();

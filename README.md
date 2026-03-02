@@ -1,205 +1,187 @@
-# PHP-Project - Steam City
+# Steam City
+> This project is a web application that allows users to view and manage their games. Looks like a steam clone, but it's not trust us.
 
-## 🚀 Guide Simple de Configuration
-
-### ❌ Problème 1: PHP ne trouve pas la "boîte à outils" (driver PDO)
-
-**Le problème:** PHP a besoin d'un fichier de configuration (`php.ini`) pour utiliser MySQL. Sans ce fichier, PHP ne sait pas comment parler à la base de données.
-
-**Comment le résoudre:**
-
-#### Étape 1: Trouver où PHP est installé
-```powershell
-# Tape cette commande:
-Get-Command php | Select-Object Source
-```
-Observer quelque chose comme: `C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5...`
-
-**Important:** `TonNom` = ton nom d'utilisateur Windows (chez nous c'était `Dels`)
-
-#### Étape 2: Créer le "livre d'instructions" (php.ini)
-```powershell
-# Remplace C:\Users\TonNom par ton vrai chemin (trouvé à l'étape 1)
-Copy-Item "C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\php.ini-development" "C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\php.ini"
-```
-
-**En résumé:** On copie un fichier modèle et on le renomme en `php.ini`
-
-#### Étape 3: Dire à PHP où sont ses outils
-Ouvre le fichier `php.ini` (trouvé à l'étape 1) et chercher la ligne qui commence par `;extension_dir`.
-
-**Avant (la ligne est commentée avec `;`):**
-```ini
-;extension_dir = "ext"
-```
-
-**Après (enlever le `;` et ajoute ton chemin):**
-```ini
-extension_dir = "C:\Users\TonNom\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\ext"
-```
-
-#### Étape 4: Activer la "boîte à outils" MySQL
-Dans le même fichier `php.ini`, chercher `;extension=pdo_mysql` et le changer en:
-```ini
-extension=php_pdo_mysql
-```
-
-**En résumé:** On enlève le `;` (qui veut dire "ne lis pas cette ligne")
-
-#### Étape 5: Vérifier que ça marche
-```powershell
-php -m | Select-String "pdo|mysql"
-```
-
-Si on voit `PDO` et `pdo_mysql` s'afficher, c'est fait! ✅
+• [Features](#-features)  
+• [Installation](#-installation)  
+• [Technologies](#-technologies)   
+• [Team](#team)  
 
 ---
 
-### ❌ Problème 2: La base de données existe mais les "tiroirs" (tables) sont vides
+## 📖 About
+Steam City is a full-stack web application inspired by Steam, designed to help gamers manage their personal game libraries. Built with modern web technologies, it provides a seamless experience for discovering games, tracking achievements, and managing your gaming profile.
 
-**Le problème:** MySQL a créé la base `steam_city` mais pas les tables à l'intérieur.
+*Note: This is an educational project and not affiliated with Valve Corporation or Steam.*
 
-**Comment le résoudre:**
+## ✨ Features
+### 👤 User Features
+- 📚 Build and manage your personal game library  
+- 🏆 Track achievements and gaming milestones  
+- ⏱️ Monitor playtime and game statistics
+- 👤 Customize your user profile
 
-#### Étape 1: Vérifier les tables
-```powershell
-# Remplace TonNom par ton nom d'utilisateur Windows
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -proot steam_city -e "SHOW TABLES;"
-```
+### 🛡️ Admin Features
+- 🎮 Full CRUD operations for games (Create, Read, Update, Delete)
+- 👥 Complete user management system
+- 📊 View platform statistics and analytics
+- 🔐 Role-based access control
 
-Si rien n'apparaît, il faut importer les tables.
-
-#### Étape 2: Fixer le fichier de recette (sql/database.sql)
-Le fichier a des sauts de ligne au mauvais endroit. Ouvrir `sql/database.sql` et vérifier que les 2 premières lignes ressemblent à:
-```sql
-CREATE DATABASE IF NOT EXISTS steam_city;
-USE steam_city;
-```
-
-(Pas de saut de ligne entre CREATE et DATABASE)
-
-#### Étape 3: Remplir les "tiroirs" (importer les tables)
-```powershell
-# Remplace C:\YNOV\B2\PHP\Project_php par ton chemin de projet
-cmd /c '"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -proot < "C:\YNOV\B2\PHP\Project_php\sql\database.sql"'
-```
-
-#### Étape 4: Vérifier que c'est fait
-```powershell
-& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -proot steam_city -e "SHOW TABLES;"
-```
-
-Résultat visible:
-- achievements
-- games
-- user_achievements
-- user_games
-- users
+### 🔐 Authentications
+- 📧 Traditional email/password login
+- <img src="https://img.shields.io/badge/Google-4285F4?style=flat&logo=google&logoColor=white" alt="Google" height="20"/> OAuth 2.0 integration
+- <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub" height="20"/> OAuth 2.0 integration
+- 🔒 Secure password hashing (bcrypt)
+- 🛡️ Protected routes with middleware
 
 ---
 
-## ✅ Ça marche! Comment démarrer?
+## 🚀 Installation
+### Prerequisites
+Before you begin, ensure you have the following installed:
+- [PHP 7.4+](https://www.php.net/downloads)
+- [MySQL 5.7+](https://dev.mysql.com/downloads/mysql/)
+- [WAMP Server](https://www.wampserver.com/en/)(Windows) or [XAMPP](https://www.apachefriends.org/index.html)(Cross-platform)
 
-### 🚀 Démarrer le serveur (la bonne façon)
-
-Le projet utilise un **routeur PHP** (`public/router.php`) parce que le serveur PHP intégré ne comprend pas les fichiers `.htaccess`.
-
-#### Option 1: Depuis la racine du projet
-```powershell
-# Lancer le serveur avec le routeur:
-php -S localhost:8080 -t public public/router.php
-
-# Aller sur:
-# http://localhost:8080
+**Step 1: Clone the Repository**
+```bash
+git clone https://github.com/Joshua31400/Steam-City
+cd Steam-City
 ```
 
-#### Option 2: Depuis le dossier public
-```powershell
-cd public
-php -S localhost:8080 router.php
-
-# Aller sur:
-# http://localhost:8080
+**Step 2: Database Setup**
+1. Import the database schema:
+```bash
+mysql -u root -p steam_city < sql/database.sql
 ```
 
-### ❌ Ne pas utiliser cette commande (elle casse le CSS):
-```powershell
-# ❌ MAUVAIS - Le CSS et les fichiers statiques ne sont pas chargés
-php -S localhost:8080 -t public public/index.php
+2. Or manually import via phpMyAdmin:
+- Open phpMyAdmin
+- Create a new database named steam_city
+- Import the sql/database.sql file
+
+**Step 3: Environment Configuration**
+1. Copy the environment template:
+```bash
+cp .env.example .env
 ```
 
-### 🎨 Pourquoi utiliser le routeur?
+2. Edit .env with your credentials:
+```bash
+# Database Configuration
+   DB_HOST=localhost
+   DB_NAME=steam_city
+   DB_USER=root
+   DB_PASS=your_password
 
-Le serveur PHP intégré n'interprète **pas** `.htaccess` (le fichier qui gère le routing Apache).
+   # Application
+   APP_URL=http://localhost:8080
 
-**Sans le routeur:**
-- ✅ PHP fonctionne
-- ❌ Les fichiers CSS/JS ne sont pas trouvés
-- ❌ Les images ne s'affichent pas
+   # Google OAuth (optional)
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_REDIRECT_URI=http://localhost:8080/auth/google/callback
 
-**Avec le routeur (`public/router.php`):**
-- ✅ PHP fonctionne
-- ✅ Les fichiers CSS/JS sont servis correctement
-- ✅ Les images s'affichent
-- ✅ Le routing fonctionne
+   # GitHub OAuth (optional)
+   GITHUB_CLIENT_ID=your_github_client_id
+   GITHUB_CLIENT_SECRET=your_github_client_secret
+   GITHUB_REDIRECT_URI=http://localhost:8080/auth/github/callback
+```
+**Step 5: Launch the Application**  
+Using PHP's built-in server:
+```bash
+php -S localhost:8000 -t public public/index.php
+```
 
-**Comment ça marche:**
-1. Chaque requête passe par `router.php`
-2. Si c'est un fichier statique (CSS, JS, images) → le serveur PHP le sert directement
-3. Si c'est une route PHP → le routeur envoie vers `index.php` pour le traitement
+Or use WAMP/MAMP and access via:
+```
+http://localhost/Steam-City/public/
+```
+
+Architecture:
+```
+Steam-City
+    │   README.md
+    │   
+    ├───.idea
+    │       .gitignore
+    │       
+    ├───config
+    │       constants.php
+    │       database.php
+    │       oauth.php
+    │       
+    ├───internal
+    │   ├───auth
+    │   │       GithubProvider.php
+    │   │       GoogleProvider.php
+    │   │       OAuthProvider.php
+    │   │       
+    │   ├───controllers
+    │   │       AdminController.php
+    │   │       AuthController.php
+    │   │       GameController.php
+    │   │       OAuthController.php
+    │   │       ProfileController.php
+    │   │       
+    │   ├───helpers
+    │   │       functions.php
+    │   │       validation.php
+    │   │       
+    │   ├───middleware
+    │   │       AuthMiddleware.php
+    │   │       
+    │   ├───models
+    │   │       Achievement.php
+    │   │       Game.php
+    │   │       User.php
+    │   │       UserGame.php
+    │   │       
+    │   └───routes
+    │           routes.php
+    │           
+    ├───public
+    │   │   .htaccess
+    │   │   index.php
+    │   │   
+    │   ├───assets
+    │   │   └───js
+    │   │           admin-modal.js
+    │   │           
+    │   └───pages
+    │           admin.php
+    │           home.php
+    │           login.html
+    │           profile.php
+    │           sign-in.html
+    │           
+    └───sql
+            database.sql
+```
+---
+
+## 💻 Technologies
+
+### Frontend
+![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
+
+### Backend
+![PHP](https://img.shields.io/badge/PHP-777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+### Tools & Services
+![WAMP](https://img.shields.io/badge/WAMP-F70000.svg?style=for-the-badge&logo=wampserver&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032.svg?style=for-the-badge&logo=git&logoColor=white)
+![OAuth2](https://img.shields.io/badge/OAuth2-3C873A.svg?style=for-the-badge&logo=auth0&logoColor=white)
 
 ---
 
-## 👥 Ce qu'il faut partager avec les collègues (Git)
+## Team
 
-**Fichiers du PROJET modifiés** - À pousser sur le repo Git:
-- ✅ `sql/database.sql` - Corrigé (sauts de ligne)
-- ✅ `README.md` - Guide de configuration
-- ✅ `public/pages/home.php` - Refactorisé (séparation PHP/HTML)
-- ✅ `public/router.php` - Routeur pour servir les fichiers statiques
+Project realized by:
 
-```powershell
-git add sql/database.sql README.md public/pages/home.php public/router.php
-git commit -m "docs: fix database.sql formatting, add setup guide, refactor home.php, add router for static files"
-git push
-```
+- **Sebastien DELVER** - [@DantesDels](https://github.com/DantesDels)
+- **Joshua BUDGEN** - [@joshua31400](https://github.com/joshua31400)
 
----
-
-## 🔧 Ce qu'il NE FAUT PAS partager (Configuration locale)
-
-**Fichiers LOCAUX du système** - Chaque développeur les configure seul:
-
-❌ **`php.ini` créé** 
-- C'est dans: `C:\Users\NomUtilisateur\AppData\Local\Microsoft\WinGet\Packages\PHP.PHP.8.5*\php.ini`
-- Chaque ordinateur a PHP à un endroit différent
-- Chaque collègue doit créer et configurer son propre
-
-❌ **Extensions PDO activées**
-- Configuration interne de PHP sur chaque poste
-
-❌ **Base de données MySQL importée**
-- C'est une instance locale sur le serveur MySQL
-- Les collègues doivent importer `database.sql` eux-mêmes
-
----
-
-## 👥 Ce que les collègues doivent faire à la réception du projet
-
-1. **Cloner le projet** (récupérer les fichiers Git)
-2. **Suivre l'étape 1-4 de ce guide** pour configurer leur PHP local
-3. **Importer la base de données** avec la commande de l'étape 2
-
-Chaque personne répète les étapes de configuration → tout fonctionne chez elle! 🚀
-
----
-
-## 🚀 Résumé facile
-
-| Étape | À faire | Pourquoi |
-|-------|---------|---------|
-| 1 | Créer `php.ini` | PHP doit savoir où sont ses outils |
-| 2 | Configurer `extension_dir` | Dire à PHP où trouver MySQL |
-| 3 | Activer `php_pdo_mysql` | Que MySQL fonctionne |
-| 4 | Importer `database.sql` | Créer les tables dans MySQL |
-| 5 | Vérifier avec `php -m` | Vérifier que tout est chargé |
+*Ynov Campus Toulouse - 2026*

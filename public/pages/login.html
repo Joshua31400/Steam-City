@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,12 @@
 </head>
 
 <body>
-    <div class="wallpaper-background"></div>
+    <!-- Vidéo de fond en boucle -->
+    <video class="wallpaper-background" autoplay muted loop playsinline>
+        <source src="/media/video_bg.mp4" type="video/mp4">
+        <!-- Fallback si la vidéo ne charge pas -->
+        <img src="/img/background.png" alt="Background">
+    </video>
 
     <main class="login-container">
         <section class="glass-panel">

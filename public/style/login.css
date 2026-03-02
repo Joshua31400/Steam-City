@@ -25,7 +25,7 @@ body {
     overflow: hidden;
 }
 
-/* --- 3. BACKGROUND --- */
+/* --- 3. BACKGROUND VIDEO --- */
 .wallpaper-background {
     position: fixed;
     top: 0;
@@ -34,9 +34,8 @@ body {
     height: 100%;
     z-index: -1;
     
-    /* Utilise ../ pour remonter d'un dossier (sortir de /style) puis entrer dans /img */
-    background: url('../img/background.png') no-repeat center center;
-    background-size: cover;
+    /* Assure que la vidéo couvre tout l'écran */
+    object-fit: cover;
     
     /* Optionnel : ajoute un léger filtre pour que le glassmorphism ressorte mieux */
     filter: brightness(0.9); 

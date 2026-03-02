@@ -53,4 +53,5 @@ Après modification de la configuration, redémarrez Apache via XAMPP Control Pa
 
 ## Accès au site
 
-Une fois configuré, accédez au site via : `http://steam-city.local`
+Une fois configuré et le serveur apache lancé avec XAMPP, 
+accédez au site via : `http://steam-city.local`

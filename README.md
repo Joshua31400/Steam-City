@@ -100,13 +100,53 @@ Résultat visible:
 
 ## ✅ Ça marche! Comment démarrer?
 
+### 🚀 Démarrer le serveur (la bonne façon)
+
+Le projet utilise un **routeur PHP** (`public/router.php`) parce que le serveur PHP intégré ne comprend pas les fichiers `.htaccess`.
+
+#### Option 1: Depuis la racine du projet
 ```powershell
-# Lancer le serveur:
-php -S localhost:8080 -t public public/index.php
+# Lancer le serveur avec le routeur:
+php -S localhost:8080 -t public public/router.php
 
 # Aller sur:
 # http://localhost:8080
 ```
+
+#### Option 2: Depuis le dossier public
+```powershell
+cd public
+php -S localhost:8080 router.php
+
+# Aller sur:
+# http://localhost:8080
+```
+
+### ❌ Ne pas utiliser cette commande (elle casse le CSS):
+```powershell
+# ❌ MAUVAIS - Le CSS et les fichiers statiques ne sont pas chargés
+php -S localhost:8080 -t public public/index.php
+```
+
+### 🎨 Pourquoi utiliser le routeur?
+
+Le serveur PHP intégré n'interprète **pas** `.htaccess` (le fichier qui gère le routing Apache).
+
+**Sans le routeur:**
+- ✅ PHP fonctionne
+- ❌ Les fichiers CSS/JS ne sont pas trouvés
+- ❌ Les images ne s'affichent pas
+
+**Avec le routeur (`public/router.php`):**
+- ✅ PHP fonctionne
+- ✅ Les fichiers CSS/JS sont servis correctement
+- ✅ Les images s'affichent
+- ✅ Le routing fonctionne
+
+**Comment ça marche:**
+1. Chaque requête passe par `router.php`
+2. Si c'est un fichier statique (CSS, JS, images) → le serveur PHP le sert directement
+3. Si c'est une route PHP → le routeur envoie vers `index.php` pour le traitement
 
 ---
 
@@ -116,10 +156,11 @@ php -S localhost:8080 -t public public/index.php
 - ✅ `sql/database.sql` - Corrigé (sauts de ligne)
 - ✅ `README.md` - Guide de configuration
 - ✅ `public/pages/home.php` - Refactorisé (séparation PHP/HTML)
+- ✅ `public/router.php` - Routeur pour servir les fichiers statiques
 
 ```powershell
-git add sql/database.sql README.md public/pages/home.php
-git commit -m "docs: fix database.sql formatting, add setup guide, refactor home.php"
+git add sql/database.sql README.md public/pages/home.php public/router.php
+git commit -m "docs: fix database.sql formatting, add setup guide, refactor home.php, add router for static files"
 git push
 ```
 

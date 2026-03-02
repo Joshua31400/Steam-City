@@ -1,16 +1,28 @@
-/* --- 1. IMPORTS ET VARIABLES --- */
+/* ==========================================================================
+   1. IMPORTS & VARIABLES
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
 
 :root {
-    --glass-bg: rgba(255, 255, 255, 0.4); /* Fond blanc très transparent */
+    /* Colors */
+    --glass-bg: rgba(255, 255, 255, 0.4);
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-main: #1a1a1a;
-    --input-focus: #ff71ce; 
+    --neon-pink: #ff71ce;
     --btn-black: #000000;
+    
+    /* Layout */
+    --container-padding-left: 12%;
+    --form-max-width: 400px;
+    
+    /* Effects */
     --transition-speed: 0.3s;
+    --glass-blur: 15px;
 }
 
-/* --- 2. RESET & BASE --- */
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +37,11 @@ body {
     overflow: hidden;
 }
 
-/* --- 3. BACKGROUND VIDEO --- */
+/* ==========================================================================
+   3. LAYOUT COMPONENTS
+   ========================================================================== */
+
+/* Background layer */
 .wallpaper-background {
     position: fixed;
     top: 0;
@@ -33,39 +49,38 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    
-    /* Assure que la vidéo couvre tout l'écran */
     object-fit: cover;
-    
-    /* Optionnel : ajoute un léger filtre pour que le glassmorphism ressorte mieux */
-    filter: brightness(0.9); 
+    filter: brightness(0.9);
+    background-size: cover;
+    background-position: center;
 }
 
-/* --- 4. LAYOUT & GLASS PANEL --- */
+/* Main Container */
 .login-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Aligne à gauche */
-    padding-left: 12%; /* Décalage vers le centre */
+    justify-content: flex-start;
+    padding-left: var(--container-padding-left);
     height: 100vh;
 }
 
+/* Glassmorphism Panel */
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 3rem;
     width: 100%;
-    max-width: 400px;
+    max-width: var(--form-max-width);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-    
     animation: fadeInSlide 0.8s ease-out forwards;
 }
 
-/* --- 5. FORM ELEMENTS --- */
+/* ==========================================================================
+   4. FORM ELEMENTS
+   ========================================================================== */
 .retro-title {
     font-size: 2.2rem;
     font-weight: 600;
@@ -87,7 +102,7 @@ body {
 
 .input-group input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.5); /* Légère opacité pour l'input */
+    background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     padding: 12px;
@@ -98,11 +113,17 @@ body {
 
 .input-group input:focus {
     background: #fff;
-    border-color: var(--input-focus);
-    box-shadow: 0 0 10px rgba(255, 113, 206, 0.2);
-}
+    border-color: var(--neon-pink);
+    box-shadow: 
+    inset 0 -3em 3em rgba(183, 228, 253, 0.489),
+    0 0 0 2px white,
+    0.2em 0.1em 3em rgba(255, 1, 136, 0.9);}
 
-/* --- 6. BOUTONS --- */
+/* ==========================================================================
+   5. BUTTONS & INTERACTIONS
+   ========================================================================== */
+
+/* Main Login Button */
 .btn-login {
     width: 100%;
     background: var(--btn-black);
@@ -112,7 +133,7 @@ body {
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
 }
 
 .btn-login:hover {
@@ -120,6 +141,17 @@ body {
     background: #222;
 }
 
+.btn-login:active {
+    transform: translateY(0) scale(0.98);
+    background: #444;
+    color: white;
+    text-shadow: 0 1px 3px rgb(68, 240, 249);
+    box-shadow: inset 0 2px 7px rgba(218, 84, 204, 0.981), 
+                0 2px 5px rgba(110, 228, 246, 0.87);
+    transition: transform 0.05s;
+}
+
+/* Social Buttons Container */
 .social-login {
     display: flex;
     flex-direction: column;
@@ -127,18 +159,48 @@ body {
     margin: 20px 0;
 }
 
-/* Réutilisation des styles de boutons sociaux */
+/* Social Buttons Base */
 .btn-google, .btn-github {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background: white;
-    border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
     padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
     font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--text-main);
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Social Buttons Hover */
+.btn-google:hover, .btn-github:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+    box-shadow: 0 0 15px rgba(255, 113, 206, 0.4), 
+                inset 0 0 5px rgba(255, 113, 206, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-google:hover img, .btn-github:hover img {
+    filter: drop-shadow(0 0 2px rgba(255, 113, 206, 0.5));
+}
+
+/* Social Buttons Active (Click) */
+.btn-google:active, .btn-github:active {
+    transform: translateY(0) scale(0.95) !important; 
+    background: rgba(255, 113, 206, 0.4) !important;
+    color: white !important;
+    text-shadow: 0.1em 0.1em 10px rgb(96, 255, 244) !important;
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px rgba(196, 239, 253, 0.966), 
+                inset 0 3px 5px rgba(0, 0, 0, 0.2) !important;
+    transition: transform 0.05s ease-out;
 }
 
 .signup-link {
@@ -150,10 +212,45 @@ body {
     color: var(--text-main);
     font-weight: 600;
     text-decoration: none;
+    display: inline-block; /* Nécessaire pour l'animation de scale */
+    padding: 5px 10px;
+    transition: all var(--transition-speed) ease;
+    border-radius: 4px;
 }
 
-/* --- 7. ANIMATIONS --- */
+/* Effet Hover : Lueur Néon subtile */
+.signup-link a:hover {
+    color: var(--neon-pink);
+    /* On superpose deux ombres :
+       1. Une ombre noire (0 0 3px) pour la lisibilité
+       2. Une ombre rose (0 0 10px) pour l'effet néon
+    */
+    text-shadow: 
+        0 0 3px rgba(0, 0, 0, 0.8), 
+        0 0 12px rgba(255, 113, 206, 0.7);
+    
+    transform: translateY(-1px);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Effet Active : Clic "enfoncé" */
+.signup-link a:active {
+    transform: translateY(1px) scale(0.95);
+    color: #facded;
+    text-shadow: 0 0 5px rgb(239, 0, 184);
+    transition: transform 0.05s;
+}
+
+/* ==========================================================================
+   6. ANIMATIONS
+   ========================================================================== */
 @keyframes fadeInSlide {
-    from { opacity: 0; transform: translateX(-50px); }
-    to { opacity: 1; transform: translateX(0); }
+    from { 
+        opacity: 0; 
+        transform: translateX(-50px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
 }

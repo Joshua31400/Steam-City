@@ -8,6 +8,7 @@ $games = $games ?? [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam City | Home</title>
     <link rel="stylesheet" href="/style/home.css">
+    <script src="/assets/js/gradient-mouse.js"></script>
 </head>
 <body>
 <header class="main-header">

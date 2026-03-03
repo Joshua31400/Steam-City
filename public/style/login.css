@@ -116,8 +116,7 @@ body {
     border-color: var(--neon-pink);
     box-shadow: 
     inset 0 -3em 3em rgba(183, 228, 253, 0.489),
-    0 0 0 2px white,
-    0.2em 0.1em 3em rgba(255, 1, 136, 0.9);}
+    0 0 0 2px white;}
 
 /* ==========================================================================
    5. BUTTONS & INTERACTIONS
@@ -146,8 +145,7 @@ body {
     background: #444;
     color: white;
     text-shadow: 0 1px 3px rgb(68, 240, 249);
-    box-shadow: inset 0 2px 7px rgba(218, 84, 204, 0.981), 
-                0 2px 5px rgba(110, 228, 246, 0.87);
+    box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
     transition: transform 0.05s;
 }
 
@@ -175,6 +173,7 @@ body {
     color: var(--text-main);
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 /* Social Buttons Hover */
@@ -182,8 +181,6 @@ body {
     background: rgba(255, 255, 255, 0.9);
     border-color: var(--neon-pink);
     color: var(--neon-pink);
-    box-shadow: 0 0 15px rgba(255, 113, 206, 0.4), 
-                inset 0 0 5px rgba(255, 113, 206, 0.2);
     transform: translateY(-2px);
 }
 

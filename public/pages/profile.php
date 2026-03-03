@@ -20,9 +20,7 @@ function formatAchievementDate($date)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam City | Profile</title>
-   <link rel="stylesheet" href="/style/root.css">
-   <link rel="stylesheet" href="/style/profile.css">
-
+    <link rel="stylesheet" href="/style/profile.css">
     <script src="/assets/js/profile-modal.js"></script>
 </head>
 <body>
@@ -68,7 +66,7 @@ function formatAchievementDate($date)
             <button onclick="showEditProfileModal()" class="btn-edit">EDIT</button>
 
             <?php if ($user['role'] === 'admin'): ?>
-                <a href="/admin" class="btn-admin">ADMIN</a>
+                <a href="/admin" class="btn-admin">ACCESS ADMIN</a>
             <?php endif; ?>
         </div>
 
@@ -90,7 +88,7 @@ function formatAchievementDate($date)
     </section>
 
     <section class="my-games">
-        <h2>My Games</h2>
+        <h2>MY GAMES</h2>
         <div class="games-list">
             <?php if (!empty($userGames)): ?>
                 <?php foreach ($userGames as $game): ?>
@@ -132,13 +130,15 @@ function formatAchievementDate($date)
 
             <div>
                 <button
+                        type="submit">
+                    Save Changes
+                </button>
+            </div>
+            <div>
+                <button
                         type="button"
                         onclick="closeProfileModal()">
                     Cancel
-                </button>
-                <button
-                        type="submit">
-                    Save Changes
                 </button>
             </div>
         </form>

@@ -1,0 +1,497 @@
+/* ==========================================================================
+   1. IMPORTS & VARIABLES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
+:root {
+	/* Colors */
+	--glass-bg: rgba(255, 255, 255, 0.4);
+	--glass-border: rgba(255, 255, 255, 0.3);
+	--text-main: #fff3ff;
+	--text-soft: #ffe9ff;
+	--text-glow: rgba(255, 113, 206, 0.7);
+	--neon-pink: #fb8ed5;
+	--neon-cyan: #2ed2fb;
+	--gradient-pink-to-cyan: linear-gradient(180deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+	--btn-black: #000000;
+	--btn-black-hover: rgb(74, 74, 74);
+	--success-bg: rgba(16, 185, 129, 0.2);
+	--success-border: rgba(16, 185, 129, 0.5);
+	--error-bg: rgba(239, 68, 68, 0.2);
+	--error-border: rgba(239, 68, 68, 0.5);
+    
+	/* Effects */
+	--transition-speed: 0.3s;
+	--glass-blur: 15px;
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Outfit', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background-attachment: fixed;
+	color: #000;
+}
+
+/* ==========================================================================
+   3. HEADER & NAVIGATION
+   ========================================================================== */
+.main-header {
+	background: var(--glass-bg);
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	border-bottom: 1px solid var(--glass-border);
+	padding: 1.5rem 3rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	animation: slideDown 0.6s ease-out;
+}
+
+.brand h1 {
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: #000;
+	letter-spacing: -0.5px;
+}
+
+.user-nav ul {
+	list-style: none;
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+}
+
+.user-nav a {
+	color: #000;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.95rem;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	transition: color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed), background var(--transition-speed);
+}
+
+.user-nav a:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, 0.5);
+	transform: translateY(-2px);
+}
+
+.user-nav a[href="/home"]:hover,
+.user-nav a[href="/profile"]:hover {
+	color: #fff;
+	background: var(--gradient-pink-to-cyan);
+    box-shadow: 0 0 14px rgb(255, 141, 221);
+}
+
+.user-nav a[href="/home"]:active,
+.user-nav a[href="/profile"]:active {
+	transform: translateY(0) scale(0.98);
+	background: #444;
+	color: #fff;
+	text-shadow: 0 1px 3px rgb(68, 240, 249);
+	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
+	transition: transform 0.05s;
+}
+
+/* Texts without dedicated background */
+th,
+td,
+#userModal label,
+#gameModal label {
+	color: #000;
+	transition: color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+th:hover,
+td:hover,
+#userModal label:hover,
+#gameModal label:hover {
+	color: #fff;
+}
+
+.user-nav button {
+	background: var(--btn-black);
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1.5rem;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 0.95rem;
+	cursor: pointer;
+	transition: transform 0.2s, background 0.2s;
+	font-family: inherit;
+}
+
+.user-nav button:hover {
+	transform: translateY(-2px);
+	background: var(--btn-black-hover);
+}
+
+.user-nav form[action="/logout"] button:hover {
+	background: #dc2626;
+}
+
+.user-nav button:active {
+	transform: translateY(0) scale(0.98);
+	background: #444;
+	color: white;
+	text-shadow: 0 1px 3px rgb(68, 240, 249);
+	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
+	transition: transform 0.05s;
+}
+
+/* ==========================================================================
+   4. MAIN CONTENT
+   ========================================================================== */
+.admin-content {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 3rem 2rem;
+	animation: fadeIn 0.8s ease-out;
+}
+
+/* ==========================================================================
+   5. ALERTS
+   ========================================================================== */
+.alert {
+	padding: 1rem 1.5rem;
+	border-radius: 12px;
+	margin-bottom: 2rem;
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	font-weight: 500;
+	animation: slideDown 0.5s ease-out;
+}
+
+.alert-success {
+	background: var(--success-bg);
+	border: 1px solid var(--success-border);
+	color: #eafffb;
+}
+
+.alert-error {
+	background: var(--error-bg);
+	border: 1px solid var(--error-border);
+	color: #ffeef3;
+}
+
+/* ==========================================================================
+   6. ADMIN STATS
+   ========================================================================== */
+.admin-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2rem;
+	margin-bottom: 3rem;
+}
+
+.admin-stats p {
+	background: var(--glass-bg);
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+	padding: 2rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: black;
+	transition: all var(--transition-speed);
+}
+
+.admin-stats p:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 4px 16px var(--neon-pink);
+	border-color: var(--neon-pink);
+}
+
+.admin-stats span {
+	display: block;
+	font-size: 2.5rem;
+	margin-top: 0.5rem;
+	color: white;
+	text-shadow: 0 0 20px var(--neon-pink);
+}
+
+/* ==========================================================================
+   7. ADMIN PANELS
+   ========================================================================== */
+.admin-panels {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.admin-section {
+	background: var(--glass-bg);
+	backdrop-filter: blur(var(--glass-blur));
+	-webkit-backdrop-filter: blur(var(--glass-blur));
+	border: 1px solid var(--glass-border);
+	border-radius: 16px;
+	padding: 2rem;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+	animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.admin-section:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+.admin-section h2 {
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 1.5rem;
+	letter-spacing: -0.5px;
+}
+
+.admin-section :not(h2):hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    border-color: var(--neon-pink);
+}
+
+/* ==========================================================================
+   8. TABLES
+   ========================================================================== */
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	margin-bottom: 1.5rem;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+thead {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+th {
+	padding: 1rem;
+	text-align: left;
+	font-weight: 600;
+	color: #000;
+	text-transform: uppercase;
+	font-size: 0.85rem;
+	letter-spacing: 0.5px;
+}
+
+td {
+	padding: 1rem;
+	color: #000;
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+tbody tr {
+	transition: all var(--transition-speed);
+}
+
+tbody tr:hover {
+	background: rgba(255, 113, 206, 0.1);
+}
+
+/* ==========================================================================
+   9. BUTTONS
+   ========================================================================== */
+.admin-section > button,
+td > button,
+#userModal button,
+#gameModal button {
+	background: var(--btn-black);
+	color: #fff;
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: transform 0.2s, background 0.2s;
+	font-family: inherit;
+}
+
+.admin-section > button:hover,
+td > button:hover,
+#userModal button:hover,
+#gameModal button:hover {
+	transform: translateY(-2px);
+	background: var(--btn-black-hover);
+}
+
+.admin-section > button:active,
+td > button:active,
+#userModal button:active,
+#gameModal button:active {
+	transform: translateY(0) scale(0.98);
+	background: #444;
+	color: white;
+	text-shadow: 0 1px 3px rgb(68, 240, 249);
+	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
+	transition: transform 0.05s;
+}
+
+/* Table action buttons */
+td button {
+	padding: 0.5rem 1rem;
+	font-size: 0.85rem;
+	margin-right: 0.5rem;
+}
+
+td button[type="submit"] {
+	background: #dc2626;
+	text-shadow: 0 0 10px rgba(255, 210, 226, 0.95);
+}
+
+td button[type="submit"]:hover {
+	background: #b91c1c;
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
+}
+
+/* ==========================================================================
+   10. MODALS
+   ========================================================================== */
+#userModal,
+#gameModal {
+	background: var(--glass-bg) !important;
+	backdrop-filter: blur(var(--glass-blur)) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur)) !important;
+	border: 1px solid var(--glass-border) !important;
+	border-radius: 24px !important;
+	padding: 2.5rem !important;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+	min-width: 400px;
+}
+
+#userModal h3,
+#gameModal h3 {
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 1.5rem;
+}
+
+#userModal form div,
+#gameModal form div {
+	margin-bottom: 1.2rem;
+}
+
+#userModal label,
+#gameModal label {
+	display: block;
+	font-size: 0.85rem;
+	font-weight: 600;
+	margin-bottom: 6px;
+	color: #000;
+}
+
+#userModal input,
+#userModal select,
+#gameModal input,
+#gameModal textarea {
+	width: 100%;
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	padding: 12px;
+	font-family: inherit;
+	outline: none;
+	transition: all var(--transition-speed);
+}
+
+#userModal input:focus,
+#userModal select:focus,
+#gameModal input:focus,
+#gameModal textarea:focus {
+	background: #fff;
+	border-color: var(--neon-pink);
+	box-shadow: 
+		inset 0 -1em 2em rgba(183, 228, 253, 0.3),
+		0 0 0 2px white;
+}
+
+#gameModal textarea {
+	min-height: 100px;
+	resize: vertical;
+}
+
+/* ==========================================================================
+   11. ANIMATIONS
+   ========================================================================== */
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ==========================================================================
+   12. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+	.main-header {
+		padding: 1rem 1.5rem;
+		flex-direction: column;
+		gap: 1rem;
+	}
+    
+	.user-nav ul {
+		gap: 1rem;
+	}
+    
+	.admin-content {
+		padding: 2rem 1rem;
+	}
+    
+	table {
+		font-size: 0.85rem;
+	}
+    
+	th, td {
+		padding: 0.75rem;
+	}
+    
+	#userModal,
+	#gameModal {
+		min-width: 90vw !important;
+		padding: 1.5rem !important;
+	}
+}

@@ -41,6 +41,11 @@ class GameController {
             redirect('/home');
         }
 
+        if ($this->userGameModel->exists($_SESSION['user_id'], $gameId)) {
+            $_SESSION['error'] = 'Ce jeu est déjà dans votre bibliothèque';
+            redirect('/home');
+        }
+
         $this->userGameModel->user_id = $_SESSION['user_id'];
         $this->userGameModel->game_id = $gameId;
         $this->userGameModel->start_date = generateRandomDate();

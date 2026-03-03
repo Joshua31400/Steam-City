@@ -22,6 +22,8 @@ function formatAchievementDate($date)
     <title>Steam City | Profile</title>
    <link rel="stylesheet" href="/style/root.css">
    <link rel="stylesheet" href="/style/profile.css">
+
+    <script src="/assets/js/profile-modal.js"></script>
 </head>
 <body>
 <header class="main-header">

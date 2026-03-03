@@ -297,6 +297,7 @@ body {
 	font-family: inherit;
 	text-decoration: none;
 	display: inline-block;
+    text-align: center;
 }
 
 .btn-admin:hover {

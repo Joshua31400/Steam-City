@@ -355,13 +355,31 @@ td button {
 }
 
 td button[type="submit"] {
-	background: #ff0000;
-	text-shadow: 0 0 10px rgba(255, 210, 226, 0.95);
+	background: var(--btn-black);
+	color: #fff;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 0.85rem;
+	cursor: pointer;
+	transition: transform 0.2s, background 0.2s;
+	font-family: inherit;
+	margin-right: 0.5rem;
 }
 
 td button[type="submit"]:hover {
-	background: #b91c1c;
+	background: red;
 	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
+}
+
+td button[type="submit"]:active {
+	transform: translateY(0) scale(0.90);
+	background: #a60000;
+	color: white;
+	text-shadow: var(--neon-pink);
+	box-shadow: var(--neon-pink);
+	transition: transform 0.05s;
 }
 
 /* ==========================================================================

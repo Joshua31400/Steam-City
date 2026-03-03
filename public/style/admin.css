@@ -143,7 +143,7 @@ td:hover,
 }
 
 .user-nav form[action="/logout"] button:hover {
-	background: #dc2626;
+	background: #ff0000;
 }
 
 .user-nav button:active {
@@ -352,7 +352,7 @@ td button {
 }
 
 td button[type="submit"] {
-	background: #dc2626;
+	background: #ff0000;
 	text-shadow: 0 0 10px rgba(255, 210, 226, 0.95);
 }
 

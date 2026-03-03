@@ -131,7 +131,7 @@ body {
 }
 
 .user-nav form[action="/logout"] button:hover {
-    background: #dc2626;
+    background: #ff0000;
 }
 
 .user-nav button:active {

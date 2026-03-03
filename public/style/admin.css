@@ -262,9 +262,9 @@ td:hover,
 	letter-spacing: -0.5px;
 }
 
-.admin-section :not(h2):hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    border-color: var(--neon-pink);
+.admin-section:hover {
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	border-color: var(--neon-pink);
 }
 
 /* ==========================================================================

@@ -6,6 +6,7 @@ require_once BASE_PATH . '/internal/models/UserGame.php';
 require_once BASE_PATH . '/internal/models/Achievement.php';
 require_once BASE_PATH . '/internal/middleware/AuthMiddleware.php';
 require_once BASE_PATH . '/internal/helpers/functions.php';
+require_once BASE_PATH . '/internal/helpers/validation.php';
 
 // ProfileController to handle user profile related actions like displaying profile, editing playtime, etc.
 class ProfileController {
@@ -57,6 +58,47 @@ class ProfileController {
             $_SESSION['success'] = 'Game updated successfully';
         } else {
             $_SESSION['error'] = 'Error updating game';
+        }
+
+        redirect('/profile');
+    }
+
+    // Update the user's profile information (username, email) from the profile page
+    public function updateProfile() {
+        AuthMiddleware::requireAuth();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/profile');
+        }
+
+        $username = sanitizeInput($_POST['username'] ?? '');
+        $email = sanitizeInput($_POST['email'] ?? '');
+
+        if (!validateRequired($username) || !validateEmail($email)) {
+            $_SESSION['error'] = 'Invalid data';
+            redirect('/profile');
+        }
+
+        $this->userModel->email = $email;
+        $existingUser = $this->userModel->findByEmail();
+
+        if ($existingUser && $existingUser['id'] != $_SESSION['user_id']) {
+            $_SESSION['error'] = 'This email is already used by another account';
+            redirect('/profile');
+        }
+
+        $this->userModel->id = $_SESSION['user_id'];
+        $this->userModel->username = $username;
+        $this->userModel->email = $email;
+        $this->userModel->role = $_SESSION['role'];
+
+        if ($this->userModel->update()) {
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
+
+            $_SESSION['success'] = 'Profile updated successfully';
+        } else {
+            $_SESSION['error'] = 'Error updating profile';
         }
 
         redirect('/profile');

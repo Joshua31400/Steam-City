@@ -40,6 +40,20 @@ function formatAchievementDate($date)
 </header>
 
 <main class="profile-content">
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success">
+            <?= escape($_SESSION['success']) ?>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-error">
+            <?= escape($_SESSION['error']) ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <section class="user-overview">
         <div class="user-details">
             <h2>Details</h2>
@@ -48,9 +62,11 @@ function formatAchievementDate($date)
 
         <div class="user-identity">
             <h2><?= escape($user['username']) ?></h2>
-            <a href="/profile/edit">EDIT</a>
+
+            <button onclick="showEditProfileModal()" class="btn-edit">EDIT</button>
+
             <?php if ($user['role'] === 'admin'): ?>
-                <a href="/admin">ADMIN</a>
+                <a href="/admin" class="btn-admin">ADMIN</a>
             <?php endif; ?>
         </div>
 
@@ -88,5 +104,43 @@ function formatAchievementDate($date)
         </div>
     </section>
 </main>
+
+<div id="profileModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <div>
+        <h3>Edit Profile</h3>
+
+        <form action="/profile/update" method="POST">
+            <div>
+                <label>Username</label>
+                <input
+                        type="text"
+                        name="username"
+                        id="profileUsername"
+                        required>
+            </div>
+
+            <div>
+                <label>Email</label>
+                <input
+                        type="email"
+                        name="email"
+                        id="profileEmail"
+                        required>
+            </div>
+
+            <div>
+                <button
+                        type="button"
+                        onclick="closeProfileModal()">
+                    Cancel
+                </button>
+                <button
+                        type="submit">
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

@@ -6,6 +6,7 @@
     <title>Steam City | Admin</title>
         <link rel="stylesheet" href="/style/admin.css">
     <script src="/assets/js/admin-modal.js"></script>
+    <script src="/assets/js/gradient-mouse.js"></script>
 </head>
 <body>
 <header class="main-header">

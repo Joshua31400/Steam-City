@@ -38,8 +38,7 @@ body {
 	font-family: 'Outfit', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	min-height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-	background-attachment: fixed;
+	background: linear-gradient(135deg, #2ed2fb 0%, #fb8ed5 100%);
 	color: #000;
 }
 

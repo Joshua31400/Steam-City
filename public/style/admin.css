@@ -22,7 +22,7 @@
     
 	/* Effects */
 	--transition-speed: 0.3s;
-	--glass-blur: 15px;
+	--glass-blur: 3px;
 }
 
 /* ==========================================================================
@@ -38,8 +38,24 @@ body {
 	font-family: 'Outfit', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	min-height: 100vh;
-	background: linear-gradient(135deg, #2ed2fb 0%, #fb8ed5 100%);
+	background: #f0f0f0;
 	color: #000;
+	position: relative;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url('/media/background-admin.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: 0.8;
+	z-index: -1;
 }
 
 /* ==========================================================================
@@ -48,7 +64,6 @@ body {
 .main-header {
 	background: var(--glass-bg);
 	backdrop-filter: blur(var(--glass-blur));
-	-webkit-backdrop-filter: blur(var(--glass-blur));
 	border-bottom: 1px solid var(--glass-border);
 	padding: 1.5rem 3rem;
 	display: flex;
@@ -59,6 +74,7 @@ body {
 	z-index: 100;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 	animation: slideDown 0.6s ease-out;
+	backdrop-filter: blur(8px);
 }
 
 .brand h1 {
@@ -176,7 +192,6 @@ td:hover,
 	border-radius: 12px;
 	margin-bottom: 2rem;
 	backdrop-filter: blur(var(--glass-blur));
-	-webkit-backdrop-filter: blur(var(--glass-blur));
 	font-weight: 500;
 	animation: slideDown 0.5s ease-out;
 }
@@ -206,7 +221,6 @@ td:hover,
 .admin-stats p {
 	background: var(--glass-bg);
 	backdrop-filter: blur(var(--glass-blur));
-	-webkit-backdrop-filter: blur(var(--glass-blur));
 	border: 1px solid var(--glass-border);
 	border-radius: 16px;
 	padding: 2rem;
@@ -242,7 +256,6 @@ td:hover,
 .admin-section {
 	background: var(--glass-bg);
 	backdrop-filter: blur(var(--glass-blur));
-	-webkit-backdrop-filter: blur(var(--glass-blur));
 	border: 1px solid var(--glass-border);
 	border-radius: 16px;
 	padding: 2rem;
@@ -389,7 +402,6 @@ td button[type="submit"]:active {
 #gameModal {
 	background: var(--glass-bg) !important;
 	backdrop-filter: blur(var(--glass-blur)) !important;
-	-webkit-backdrop-filter: blur(var(--glass-blur)) !important;
 	border: 1px solid var(--glass-border) !important;
 	border-radius: 24px !important;
 	padding: 2.5rem !important;

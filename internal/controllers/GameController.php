@@ -43,7 +43,7 @@ class GameController {
 
         if ($this->userGameModel->exists($_SESSION['user_id'], $gameId)) {
             $_SESSION['error'] = 'Ce jeu est déjà dans votre bibliothèque';
-            redirect('/home');
+            redirect('/profile');
         }
 
         $this->userGameModel->user_id = $_SESSION['user_id'];

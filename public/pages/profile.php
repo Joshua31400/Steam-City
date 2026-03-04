@@ -24,66 +24,6 @@ function formatAchievementDate($date)
     <script src="/assets/js/profile-modal.js"></script>
     <script src="/assets/js/gradient-mouse.js"></script>
     <script src="/assets/js/game-details-modal.js"></script>
-
-    <style>
-    /* Game Details Modal - Minimal Style */
-    #gameDetailsModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    overflow-y: auto;
-    }
-
-    #gameDetailsModal > div {
-    position: relative;
-    max-width: 600px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    }
-
-    #gameDetailsLoading {
-    text-align: center;
-    padding: 40px;
-    }
-
-    /* Spinner basique */
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-    }
-
-    .modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    font-size: 18px;
-    padding: 5px 10px;
-    }
-
-    .achievement-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    }
-
-    .achievement-item.unlocked {
-    background: #f0fff0;
-    }
-
-    .achievement-item.locked {
-    opacity: 0.6;
-    }
-    "
-    </style>
 </head>
 <body>
 <header class="main-header">

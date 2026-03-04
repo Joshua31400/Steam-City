@@ -1,6 +1,6 @@
 async function showGameDetails(userGameId) {
     const modal = document.getElementById('gameDetailsModal');
-    modal.style.display = 'block';
+    modal.classList.add('show');
 
     try {
         const response = await fetch(`/profile/game/details?id=${userGameId}`);
@@ -35,12 +35,23 @@ async function showGameDetails(userGameId) {
             div.className = 'achievement-item ' + (ach.unlocked ? 'unlocked' : 'locked');
             div.innerHTML = '<strong>' + ach.name + '</strong><p>' + (ach.description || '') + '</p>';
             list.appendChild(div);
-        });} catch (e) {
+        });
+    } catch (e) {
         alert('Erreur');
         closeGameDetailsModal();
     }
 }
 
 function closeGameDetailsModal() {
-    document.getElementById('gameDetailsModal').style.display = 'none';
+    document.getElementById('gameDetailsModal').classList.remove('show');
 }
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('gameDetailsModal');
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeGameDetailsModal();
+        }
+    });
+});

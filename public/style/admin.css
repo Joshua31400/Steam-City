@@ -22,6 +22,7 @@
     
 	/* Effects */
 	--transition-speed: 0.3s;
+	--transition-timing: ease-in-out;
 	--glass-blur: 3px;
 }
 
@@ -34,6 +35,7 @@
 	box-sizing: border-box;
 	user-select: none;
 	caret-color: transparent;
+	transition-timing-function: var(--transition-timing);
 }
 
 body {
@@ -367,6 +369,7 @@ td button {
 	padding: 0.5rem 1rem;
 	font-size: 0.85rem;
 	margin-right: 0.5rem;
+	width: 80%;
 }
 
 td button[type="submit"] {
@@ -381,6 +384,7 @@ td button[type="submit"] {
 	transition: transform 0.2s, background 0.2s;
 	font-family: inherit;
 	margin-right: 0.5rem;
+	margin-top: 0.5rem;
 }
 
 td button[type="submit"]:hover {

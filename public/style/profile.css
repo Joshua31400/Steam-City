@@ -184,7 +184,7 @@ body {
 	margin-bottom: 2rem;
 	backdrop-filter: blur(var(--glass-blur));
 	font-weight: 500;
-	animation: slideDown 0.5s ease-out;
+	animation: slideDown 0.5s ease-out, fadeOutSlideUp 0.5s ease-out 8s forwards;
 }
 
 .alert-success {
@@ -792,6 +792,18 @@ body {
 	to {
 		opacity: 1;
 		transform: translateY(0);
+	}
+}
+
+@keyframes fadeOutSlideUp {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-20px);
+		visibility: hidden;
 	}
 }
 

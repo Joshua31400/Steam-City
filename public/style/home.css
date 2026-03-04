@@ -107,7 +107,6 @@ body {
     transition: transform 0.05s;
 }
 
-/* Texts without dedicated background */
 .card-content p {
     color: #000;
     transition: color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
@@ -127,7 +126,7 @@ body {
     backdrop-filter: blur(var(--glass-blur));
     padding: 0.5rem;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .user-nav button {

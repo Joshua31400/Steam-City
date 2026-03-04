@@ -11,6 +11,7 @@
     --btn-black: #000000;
     
     --transition-speed: 0.3s;
+    --transition-timing: ease-in-out;
     --glass-blur: 15px;
 }
 
@@ -23,6 +24,7 @@
     box-sizing: border-box;
     user-select: none;
     caret-color: transparent;
+    transition-timing-function: var(--transition-timing);
 }
 
 body {

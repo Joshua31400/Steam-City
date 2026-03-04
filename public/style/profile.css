@@ -22,6 +22,7 @@
     
 	/* Effects */
 	--transition-speed: 0.3s;
+	--transition-timing: ease-in-out;
 	--glass-blur: 15px;
 }
 
@@ -34,6 +35,7 @@
 	box-sizing: border-box;
 	user-select: none;
 	caret-color: transparent;
+	transition-timing-function: var(--transition-timing);
 }
 
 body {
@@ -83,7 +85,7 @@ body {
 	font-size: 0.95rem;
 	padding: 0.5rem 1rem;
 	border-radius: 8px;
-	transition: color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed), background var(--transition-speed);
+	transition: color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing), background var(--transition-speed) var(--transition-timing);
 }
 
 .user-nav a:hover {
@@ -108,7 +110,7 @@ body {
 	color: #fff;
 	text-shadow: 0 1px 3px rgb(68, 240, 249);
 	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
-	transition: transform 0.05s;
+	transition: transform 0.05s ease-out;
 }
 
 /* Texts without dedicated background */
@@ -119,7 +121,7 @@ body {
 .game-card p,
 #profileModal label {
 	color: #000;
-	transition: color var(--transition-speed), box-shadow var(--transition-speed);
+	transition: color var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
 }
 
 .user-details p:hover,
@@ -141,7 +143,7 @@ body {
 	font-weight: 600;
 	font-size: 0.95rem;
 	cursor: pointer;
-	transition: transform 0.2s, background 0.2s;
+	transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
 	font-family: inherit;
 }
 
@@ -160,7 +162,7 @@ body {
 	color: white;
 	text-shadow: 0 1px 3px rgb(68, 240, 249);
 	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
-	transition: transform 0.05s;
+	transition: transform 0.05s ease-out;
 }
 
 /* ==========================================================================
@@ -261,12 +263,11 @@ body {
 	font-weight: 600;
 	font-size: 0.9rem;
 	cursor: pointer;
-	transition: all var(--transition-speed);
+	transition: all var(--transition-speed) var(--transition-timing);
 	font-family: inherit;
 	text-decoration: none;
 	text-align: center;
 	display: inline-block;
-	transition: transform 0.2s, background 0.2s;
 }
 
 .btn-edit:hover,
@@ -282,7 +283,7 @@ body {
 	color: white;
 	text-shadow: 0 1px 3px rgb(68, 240, 249);
 	box-shadow: 0 2px 5px rgba(110, 228, 246, 0.87);
-	transition: transform 0.05s;
+	transition: transform 0.05s ease-out;
 }
 
 .btn-admin {
@@ -294,7 +295,7 @@ body {
 	font-weight: 600;
 	font-size: 0.9rem;
 	cursor: pointer;
-	transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+	transition: transform 0.2s ease-in-out, background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 	font-family: inherit;
 	text-decoration: none;
 	display: inline-block;
@@ -313,7 +314,7 @@ body {
 	color: #fff;
 	text-shadow: 0 1px 3px rgb(68, 240, 249);
 	box-shadow: inset 0 2px 7px rgba(251, 142, 213, 0.5), 0 2px 5px rgba(110, 228, 246, 0.87);
-	transition: transform 0.05s;
+	transition: transform 0.05s ease-out;
 }
 
 .btn-details {
@@ -327,12 +328,11 @@ body {
 	font-weight: 600;
 	font-size: 0.9rem;
 	cursor: pointer;
-	transition: all var(--transition-speed);
+	transition: all var(--transition-speed) var(--transition-timing);
 	font-family: inherit;
 	text-decoration: none;
 	text-align: center;
 	display: inline-block;
-	transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 .btn-details:hover {
@@ -348,7 +348,7 @@ body {
 	border: #5bd6ff 1px solid;
 	color: #ffffff;
 	text-shadow: 0 0 10px rgb(29, 100, 103);
-	transition: transform 0.05s;
+	transition: transform 0.05s ease-out;
 }
 
 /* Achievements List */
@@ -582,13 +582,203 @@ body {
 	font-weight: 600;
 	font-size: 0.9rem;
 	cursor: pointer;
-	transition: transform 0.2s, background 0.2s;
+	transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
 	font-family: inherit;
 	margin: 0;
 }
 
+/* ==========================================================================
+   8.5. GAME DETAILS MODAL
+   ========================================================================== */
 #gameDetailsModal {
-	color: red;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.6);
+	backdrop-filter: blur(4px);
+	align-items: center;
+	justify-content: center;
+	z-index: 2000;
+	animation: fadeIn 0.3s ease-out;
+}
+
+#gameDetailsModal.show {
+	display: flex;
+}
+
+#gameDetailsModal > div {
+	background: var(--glass-bg);
+	backdrop-filter: blur(var(--glass-blur));
+	border: 1px solid var(--glass-border);
+	border-radius: 24px;
+	padding: 2.5rem;
+	width: 90%;
+	max-width: 650px;
+	max-height: 85vh;
+	overflow-y: auto;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+	position: relative;
+	animation: slideDown 0.4s ease-out;
+}
+
+#gameDetailsLoading {
+	text-align: center;
+	padding: 40px;
+	color: #000;
+	font-weight: 600;
+	font-size: 1.1rem;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.modal-close-btn {
+	z-index: 1;
+	position: absolute;
+	top: 1.5rem;
+	right: 1.5rem;
+	background: rgba(251, 142, 213, 0.25);
+	border: 1px solid rgba(251, 142, 213, 0.5);
+	border-radius: 50%;
+	width: 44px;
+	height: 44px;
+	font-size: 1.5rem;
+	color: #000;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all var(--transition-speed);
+	font-weight: 300;
+	padding: 0;
+}
+
+.modal-close-btn:hover {
+	background: rgba(251, 142, 213, 0.45);
+	border-color: var(--neon-pink);
+	color: #fff;
+	transform: scale(1.1) rotate(90deg);
+}
+
+.modal-close-btn:active {
+	transform: scale(0.95) rotate(90deg);
+	background: var(--neon-pink);
+}
+
+#gameDetailsModal img {
+	width: 100%;
+	border-radius: 16px;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+	transition: transform var(--transition-speed) var(--transition-timing);
+	object-fit: cover;
+	max-height: 300px;
+}
+
+#gameDetailsModal img:hover {
+	transform: scale(1.02);
+}
+
+#gameDetailsModal h2 {
+	font-size: 1.8rem;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 0.75rem;
+	letter-spacing: -0.5px;
+}
+
+#gameDetailsModal h3 {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #000;
+	margin-top: 1.5rem;
+	margin-bottom: 0.75rem;
+	border-bottom: 2px solid rgba(251, 142, 213, 0.25);
+	padding-bottom: 0.5rem;
+}
+
+#gameDetailsModal p {
+	color: #000;
+	font-size: 0.95rem;
+	line-height: 1.6;
+	margin-bottom: 0.75rem;
+}
+
+#gameDetailsModal p strong {
+	color: #000;
+	font-weight: 600;
+}
+
+#gameDetailsModal p span {
+	background: linear-gradient(135deg, rgba(251, 142, 213, 0.15) 0%, rgba(46, 210, 251, 0.15) 100%);
+	padding: 0.3rem 0.6rem;
+	border-radius: 6px;
+	font-weight: 800;
+	color: #000;
+	display: inline-block;
+	cursor: pointer;
+	transition: all var(--transition-speed);
+}
+
+#gameDetailsModal p span:hover {
+	transform: translateY(-2px) scale(1.05);
+	background: linear-gradient(135deg, rgba(251, 142, 213, 0.25) 0%, rgba(46, 210, 251, 0.25) 100%);
+	color: #ffffff;
+	text-shadow: 0 0 5px rgba(21, 38, 42, 0.8);
+	box-shadow: 0 2px 8px rgba(251, 142, 213, 0.3);
+}
+
+#gameDetailAchievements {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.achievement-item {
+	background: rgba(255, 255, 255, 0.3);
+	border: 1px solid var(--glass-border);
+	border-radius: 12px;
+	padding: 1rem;
+	text-align: center;
+	transition: all var(--transition-speed);
+	cursor: pointer;
+}
+
+.achievement-item.unlocked {
+	background: linear-gradient(135deg, rgba(251, 142, 213, 0.2) 0%, rgba(46, 210, 251, 0.2) 100%);
+	border-color: var(--neon-pink);
+}
+
+.achievement-item.locked {
+	opacity: 0.5;
+	filter: grayscale(80%);
+}
+
+.achievement-item:hover {
+	background: rgba(251, 142, 213, 0.25);
+	border-color: var(--neon-pink);
+	transform: translateY(-4px);
+	box-shadow: 0 4px 12px rgba(251, 142, 213, 0.3);
+}
+
+.achievement-item strong {
+	display: block;
+	color: #000;
+	font-weight: 600;
+	font-size: 0.85rem;
+	margin-bottom: 0.5rem;
+}
+
+.achievement-item p {
+	font-size: 0.75rem;
+	color: #000;
+	margin: 0;
 }
 
 /* ==========================================================================

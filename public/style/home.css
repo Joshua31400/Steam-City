@@ -40,6 +40,11 @@ body {
     color: #000;
 }
 
+input,
+textarea {
+    caret-color: #000;
+}
+
 /* ==========================================================================
    3. HEADER & NAVIGATION
    ========================================================================== */
@@ -109,29 +114,6 @@ body {
 
 .card-content {
     height: 200px;
-}
-
-.card-content p {
-    color: #000;
-    transition: color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
-}
-
-.card-content p:hover {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height:auto;
-    transform: translateY(2px) scale(1.02);
-    transition: all var(--transition-speed);
-    max-height: none;
-    overflow: visible;
-    z-index: 1;
-    background: white;
-    backdrop-filter: blur(var(--glass-blur));
-    padding: 0.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .user-nav button {
@@ -264,7 +246,10 @@ body {
 }
 
 .card-content {
-    padding: 1.5rem;
+    padding-top: 1.5rem;
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+    padding-bottom: 0;
     position: relative;
     overflow: visible;
 }
@@ -303,10 +288,17 @@ body {
     height: 80px;
     overflow: hidden;
     position: relative;
+    transition: height var(--transition-speed), max-height var(--transition-speed);
+}
+
+.card-content p:hover {
+    height: auto;
+    overflow: visible;
+    background-color: white;
 }
 
 .card-footer {
-    padding: 0 1.5rem 1.5rem;
+    padding: 1.2rem 1.5rem 1.5rem;
 }
 
 .btn-add {

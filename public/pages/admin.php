@@ -111,7 +111,7 @@
     </div>
 </main>
 
-<!-- USER MODAL TEST (FUTURE INTERFACE) -->
+<!-- USER MODAL TEST -->
 <div id="userModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
     <h3 id="userModalTitle">Add User</h3>
     <form id="userForm" action="/admin/user/create" method="POST">
@@ -139,7 +139,7 @@
     </form>
 </div>
 
-<!-- GAME MODAL TEST (FUTURE INTERFACE) -->
+<!-- GAME MODAL TEST -->
 <div id="gameModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
     <h3 id="gameModalTitle">Add Game</h3>
     <form id="gameForm" action="/admin/game/create" method="POST">

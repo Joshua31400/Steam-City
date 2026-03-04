@@ -35,6 +35,11 @@ body {
     overflow: hidden;
 }
 
+input,
+textarea {
+    caret-color: #000;
+}
+
 /* Background Video */
 .wallpaper-background {
     position: fixed;

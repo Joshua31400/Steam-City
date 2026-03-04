@@ -47,6 +47,11 @@ body {
 	position: relative;
 }
 
+input,
+textarea {
+	caret-color: #000;
+}
+
 body::before {
 	content: '';
 	position: fixed;

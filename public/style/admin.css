@@ -32,6 +32,8 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	user-select: none;
+	caret-color: transparent;
 }
 
 body {
@@ -422,6 +424,11 @@ td button[type="submit"]:active {
 	margin-bottom: 1.2rem;
 }
 
+#userModal form div .custom-option, 
+#userModal form div .arrow {
+	margin-bottom: 0;;
+}
+
 #userModal label,
 #gameModal label {
 	display: block;
@@ -446,7 +453,6 @@ td button[type="submit"]:active {
 }
 
 #userModal input:focus,
-#userModal select:focus,
 #gameModal input:focus,
 #gameModal textarea:focus {
 	background: #fff;
@@ -454,6 +460,113 @@ td button[type="submit"]:active {
 	box-shadow: 
 		inset 0 -1em 2em rgba(183, 228, 253, 0.3),
 		0 0 0 2px white;
+}
+
+#userModal select:focus {
+	box-shadow: 
+		inset 0 -1em 2em rgba(183, 228, 253, 0.3),
+		0 0 0 2px white;
+}
+
+.custom-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.custom-select {
+	position: relative;
+	width: 100%;
+	user-select: none;
+	font-size: smaller;
+}
+
+.custom-select-trigger {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	gap: 0.5rem;
+	background: rgba(255, 255, 255, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: 8px;
+	padding: 12px;
+	cursor: pointer;
+	transition: all var(--transition-speed);
+	color: #000;
+}
+
+.custom-select-trigger:hover {
+	background: rgba(255, 255, 255, 0.7);
+	border-color: rgba(0, 0, 0, 0.1);
+}
+
+.custom-select.open .custom-select-trigger {
+	background: #fff;
+	border-color: var(--neon-pink);
+	box-shadow: 
+		inset 0 -1em 2em rgba(183, 228, 253, 0.3),
+		0 0 0 2px white;
+}
+
+.custom-select-trigger .arrow {
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 6px solid #000;
+	transition: transform var(--transition-speed);
+	margin-left: auto;
+}
+
+.custom-select.open .custom-select-trigger .arrow {
+	transform: rotate(180deg);
+}
+
+.custom-options {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	right: 0;
+	background: #ffffff;
+	border: 1px solid var(--neon-pink);
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	z-index: 10;
+	max-height: 0;
+	opacity: 0;
+	transition: all var(--transition-speed);
+	pointer-events: none;
+}
+
+.custom-select.open .custom-options {
+	max-height: 200px;
+	opacity: 1;
+	pointer-events: all;
+}
+
+.custom-option {
+	padding: 12px;
+	cursor: pointer;
+	transition: all var(--transition-speed);
+	color: #000;
+	font-weight: 500;
+	background: #ffffff;
+}
+
+.custom-option:hover {
+	background: linear-gradient(135deg, rgba(251, 142, 213, 0.2) 0%, rgba(46, 210, 251, 0.2) 100%);
+	color: #000;
+}
+
+.custom-option.selected {
+	background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+	color: #fff;
+	font-weight: 600;
+}
+
+.custom-option.selected:hover {
+	background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-cyan) 100%);
+	opacity: 0.9;
 }
 
 #gameModal textarea {

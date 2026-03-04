@@ -118,11 +118,21 @@
         <input type="hidden" name="user_id" id="userId">
         <div><label>Username</label><input type="text" name="username" id="userName" required></div>
         <div><label>Email</label><input type="email" name="email" id="userEmail" required></div>
-        <div><label>Role</label>
-            <select name="role" id="userRole">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
+        <div>
+            <label>Role</label>
+            <div class="custom-select-wrapper">
+                <input type="hidden" name="role" id="userRole" value="user">
+                <div class="custom-select" id="customRoleSelect">
+                    <div class="custom-select-trigger">
+                        <span id="selectedRoleText">User</span>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="custom-options">
+                        <div class="custom-option selected" data-value="user">User</div>
+                        <div class="custom-option" data-value="admin">Admin</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <button type="submit">Save</button>
         <button type="button" onclick="closeUserModal()">Cancel</button>

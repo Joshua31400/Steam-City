@@ -1,25 +1,29 @@
-<!DOCTYPE html>
+<?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Website for Steam City, a platform for gaming enthusiasts. Sign in to create a new account and join the gaming community.">
+    <meta name="description" content="Website for Steam City, a platform for gaming enthusiasts.">
     <title>Steam City | Sign-in</title>
     <link rel="stylesheet" href="/style/sign-in.css">
 </head>
-
 <body>
 
-    <!-- Vidéo de fond en boucle -->
 <video class="wallpaper-background" autoplay muted loop playsinline>
     <source src="/media/video_bg.mp4" type="video/mp4">
-    <!-- Fallback si la vidéo ne charge pas -->
     <img src="/img/background.png" alt="Background">
 </video>
 
 <main class="auth-container">
     <section class="auth-form">
         <h1>Sign-in</h1>
+
+        <?php if (!empty($_SESSION['error'])): ?>
+            <div class="alert alert-error">
+            <?= htmlspecialchars($_SESSION['error']) ?>
+            </div><?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+
         <form action="/register" method="POST">
             <div class="input-group">
                 <label for="email">Email</label>

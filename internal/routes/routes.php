@@ -24,7 +24,7 @@ switch ($request) {
         $controller->login();
         break;
 
-    case '/signup':
+    case '/sign-in':
         $controller = new AuthController();
         $controller->showSignIn();
         break;

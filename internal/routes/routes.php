@@ -140,6 +140,22 @@ switch ($request) {
         $controller->deleteGame();
         break;
 
+    // ADMIN ACHIEVEMENT CRUD
+    case '/admin/achievement/create':
+        $controller = new AdminController();
+        $controller->createAchievement();
+        break;
+
+    case '/admin/achievement/update':
+        $controller = new AdminController();
+        $controller->updateAchievement();
+        break;
+
+    case '/admin/achievement/delete':
+        $controller = new AdminController();
+        $controller->deleteAchievement();
+        break;
+
     // PROFILE GAME EDIT
     case '/profile/game/edit':
         $controller = new ProfileController();

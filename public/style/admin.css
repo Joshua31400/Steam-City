@@ -331,7 +331,8 @@ tbody tr:hover {
 .admin-section > button,
 td > button,
 #userModal button,
-#gameModal button {
+#gameModal button,
+#achievementModal button {
 	background: var(--btn-black);
 	color: #fff;
 	padding: 0.75rem 1.5rem;
@@ -347,7 +348,8 @@ td > button,
 .admin-section > button:hover,
 td > button:hover,
 #userModal button:hover,
-#gameModal button:hover {
+#gameModal button:hover,
+#achievementModal button:hover {
 	transform: translateY(-2px);
 	background: var(--btn-black-hover);
 }
@@ -355,7 +357,8 @@ td > button:hover,
 .admin-section > button:active,
 td > button:active,
 #userModal button:active,
-#gameModal button:active {
+#gameModal button:active,
+#achievementModal button:active {
 	transform: translateY(0) scale(0.98);
 	background: #444;
 	color: white;
@@ -404,7 +407,8 @@ td button[type="submit"]:active {
    10. MODALS
    ========================================================================== */
 #userModal,
-#gameModal {
+#gameModal,
+#achievementModal {
 	background: var(--glass-bg) !important;
 	backdrop-filter: blur(var(--glass-blur)) !important;
 	border: 1px solid var(--glass-border) !important;
@@ -415,7 +419,8 @@ td button[type="submit"]:active {
 }
 
 #userModal h3,
-#gameModal h3 {
+#gameModal h3,
+#achievementModal h3 {
 	font-size: 1.8rem;
 	font-weight: 600;
 	color: #000;
@@ -423,7 +428,8 @@ td button[type="submit"]:active {
 }
 
 #userModal form div,
-#gameModal form div {
+#gameModal form div,
+#achievementModal form div {
 	margin-bottom: 1.2rem;
 }
 
@@ -433,7 +439,8 @@ td button[type="submit"]:active {
 }
 
 #userModal label,
-#gameModal label {
+#gameModal label,
+#achievementModal label {
 	display: block;
 	font-size: 0.85rem;
 	font-weight: 600;
@@ -444,7 +451,10 @@ td button[type="submit"]:active {
 #userModal input,
 #userModal select,
 #gameModal input,
-#gameModal textarea {
+#gameModal textarea,
+#achievementModal input,
+#achievementModal select,
+#achievementModal textarea {
 	width: 100%;
 	background: rgba(255, 255, 255, 0.5);
 	border: 1px solid rgba(0, 0, 0, 0.05);
@@ -457,12 +467,20 @@ td button[type="submit"]:active {
 
 #userModal input:focus,
 #gameModal input:focus,
-#gameModal textarea:focus {
+#gameModal textarea:focus,
+#achievementModal input:focus,
+#achievementModal select:focus,
+#achievementModal textarea:focus {
 	background: #fff;
 	border-color: var(--neon-pink);
-	box-shadow: 
-		inset 0 -1em 2em rgba(183, 228, 253, 0.3),
-		0 0 0 2px white;
+	box-shadow:
+			inset 0 -1em 2em rgba(183, 228, 253, 0.3),
+			0 0 0 2px white;
+}
+
+#achievementModal textarea {
+	min-height: 100px;
+	resize: vertical;
 }
 
 #userModal select:focus {
@@ -545,6 +563,7 @@ td button[type="submit"]:active {
 	max-height: 200px;
 	opacity: 1;
 	pointer-events: all;
+	overflow-y: auto;
 }
 
 .custom-option {
@@ -576,6 +595,25 @@ td button[type="submit"]:active {
 	min-height: 100px;
 	resize: vertical;
 }
+
+.custom-options::-webkit-scrollbar {
+	width: 6px;
+}
+
+.custom-options::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 3px;
+}
+
+.custom-options::-webkit-scrollbar-thumb {
+	background: var(--neon-pink);
+	border-radius: 3px;
+}
+
+.custom-options::-webkit-scrollbar-thumb:hover {
+	background: var(--neon-cyan);
+}
+
 
 /* ==========================================================================
    11. ANIMATIONS
@@ -648,9 +686,10 @@ td button[type="submit"]:active {
 	th, td {
 		padding: 0.75rem;
 	}
-    
+
 	#userModal,
-	#gameModal {
+	#gameModal,
+	#achievementModal {
 		min-width: 90vw !important;
 		padding: 1.5rem !important;
 	}

@@ -10,7 +10,6 @@ class UserGame {
     public $game_id;
     public $start_date;
     public $play_time;
-    public $death_date;
 
     // Constructor to initialize the database connection
     // Usage: $userGame = new UserGame($db);
@@ -60,13 +59,13 @@ class UserGame {
         return $stmt->fetch() !== false;
     }
 
-    // Add a game to user's library with random start_date, play_time and death_date
+    // Add a game to user's library with random start_date, play_time
     // For testing purposes, Admin can add games with random stats to users
     // Usage: $userGame->create();
     public function create() {
         $query = "INSERT INTO " . $this->table . " 
-                  (user_id, game_id, start_date, play_time, death_date) 
-                  VALUES (:user_id, :game_id, :start_date, :play_time, :death_date)";
+                  (user_id, game_id, start_date, play_time) 
+                  VALUES (:user_id, :game_id, :start_date, :play_time)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -74,7 +73,6 @@ class UserGame {
         $stmt->bindParam(':game_id', $this->game_id);
         $stmt->bindParam(':start_date', $this->start_date);
         $stmt->bindParam(':play_time', $this->play_time);
-        $stmt->bindParam(':death_date', $this->death_date);
 
         return $stmt->execute();
     }
@@ -84,14 +82,13 @@ class UserGame {
     // Usage: $userGame->update();
     public function update() {
         $query = "UPDATE " . $this->table . " 
-                  SET start_date = :start_date, play_time = :play_time, death_date = :death_date 
+                  SET start_date = :start_date, play_time = :play_time 
                   WHERE id = :id";
 
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':start_date', $this->start_date);
         $stmt->bindParam(':play_time', $this->play_time);
-        $stmt->bindParam(':death_date', $this->death_date);
         $stmt->bindParam(':id', $this->id);
 
         return $stmt->execute();

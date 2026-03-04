@@ -124,7 +124,6 @@ class ProfileController {
                     ug.id as user_game_id,
                     ug.start_date,
                     ug.play_time,
-                    ug.death_date,
                     ug.added_at,
                     g.id as game_id,
                     g.name as game_name,
@@ -184,8 +183,7 @@ class ProfileController {
                     'total_achievements' => $totalAchievements,
                     'unlocked_achievements' => $unlockedAchievements,
                     'achievement_percentage' => $achievementPercentage,
-                    'days_played' => $this->calculateDaysPlayed($gameDetails['start_date']),
-                    'last_death' => $gameDetails['death_date'] ? date('d/m/Y', strtotime($gameDetails['death_date'])) : 'Still alive'
+                    'days_played' => $this->calculateDaysPlayed($gameDetails['start_date'])
                 ]
             ];
 

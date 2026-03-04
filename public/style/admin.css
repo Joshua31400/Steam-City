@@ -364,12 +364,11 @@ td > button:active,
 	transition: transform 0.05s;
 }
 
-/* Table action buttons */
 td button {
 	padding: 0.5rem 1rem;
 	font-size: 0.85rem;
 	margin-right: 0.5rem;
-	width: 80%;
+	width: 7em;
 }
 
 td button[type="submit"] {

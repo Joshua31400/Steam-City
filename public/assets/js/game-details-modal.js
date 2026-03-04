@@ -24,7 +24,6 @@ async function showGameDetails(userGameId) {
         document.getElementById('gameDetailPlayTime').textContent = game.play_time + 'h';
         document.getElementById('gameDetailStartDate').textContent = game.start_date;
         document.getElementById('gameDetailDaysPlayed').textContent = stats.days_played;
-        document.getElementById('gameDetailLastDeath').textContent = stats.last_death;
         document.getElementById('gameDetailAchievementProgress').textContent =
             stats.unlocked_achievements + '/' + stats.total_achievements;
 

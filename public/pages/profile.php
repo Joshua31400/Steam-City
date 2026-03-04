@@ -160,7 +160,6 @@ function formatAchievementDate($date)
         <p>Play Time: <span id="gameDetailPlayTime"></span></p>
         <p>Start Date: <span id="gameDetailStartDate"></span></p>
         <p>Days Played: <span id="gameDetailDaysPlayed"></span></p>
-        <p>Last Death: <span id="gameDetailLastDeath"></span></p>
         <h3>Achievements</h3>
         <p id="gameDetailAchievementProgress"></p>
         <div id="gameDetailAchievements"></div>

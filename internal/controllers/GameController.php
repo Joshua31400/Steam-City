@@ -50,7 +50,6 @@ class GameController {
         $this->userGameModel->game_id = $gameId;
         $this->userGameModel->start_date = generateRandomDate();
         $this->userGameModel->play_time = generateRandomPlayTime();
-        $this->userGameModel->death_date = generateRandomDate();
 
         if ($this->userGameModel->create()) {
             $_SESSION['success'] = 'Jeu ajouté à votre bibliothèque';

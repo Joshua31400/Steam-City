@@ -4,6 +4,9 @@ function showAddUserModal() {
     document.getElementById('userId').value = '';
     document.getElementById('userName').value = '';
     document.getElementById('userEmail').value = '';
+    document.getElementById('userPassword').value = '';
+    document.getElementById('passwordField').style.display = 'block';
+    document.getElementById('userPassword').required = true;
     setCustomSelectValue('user');
     document.getElementById('userModal').style.display = 'block';
 }
@@ -14,9 +17,12 @@ function editUser(id, username, email, role) {
     document.getElementById('userId').value = id;
     document.getElementById('userName').value = username;
     document.getElementById('userEmail').value = email;
+    document.getElementById('passwordField').style.display = 'none';
+    document.getElementById('userPassword').required = false;
     setCustomSelectValue(role);
     document.getElementById('userModal').style.display = 'block';
 }
+
 
 function closeUserModal() { document.getElementById('userModal').style.display = 'none'; }
 

@@ -118,6 +118,7 @@
         <input type="hidden" name="user_id" id="userId">
         <div><label>Username</label><input type="text" name="username" id="userName" required></div>
         <div><label>Email</label><input type="email" name="email" id="userEmail" required></div>
+        <div id="passwordField"><label>Password</label><input type="password" name="password" id="userPassword"></div>
         <div>
             <label>Role</label>
             <div class="custom-select-wrapper">

@@ -1,11 +1,21 @@
 <?php
+require_once BASE_PATH . '/config/oauth.php';
+require_once BASE_PATH . '/config/database.php';
+
 class Database {
-    // Database connection parameters
-    private $host = 'localhost';
-    private $db_name = 'steam_city';
-    private $username = 'root';
-    private $password = 'root';
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     private $conn;
+
+    // Constructor to initialize database connection parameters
+    public function __construct() {
+        $this->host = env('DB_HOST', 'localhost');
+        $this->db_name = env('DB_NAME', 'steam_city');
+        $this->username = env('DB_USER', 'root');
+        $this->password = env('DB_PASS', '');
+    }
 
     public function getConnection() {
         // Initialize the connection variable

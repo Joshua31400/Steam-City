@@ -1,0 +1,9 @@
+# Ignore files and directories that should not be included in the Docker build context
+.git
+.gitignore
+.env
+README.md
+docker-compose.yml
+*.md
+vendor/
+.idea/

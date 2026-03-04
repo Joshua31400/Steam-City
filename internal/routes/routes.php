@@ -82,6 +82,11 @@ switch ($request) {
         $controller->updateProfile();
         break;
 
+    case '/profile/game/details':
+        $controller = new ProfileController();
+        $controller->GetGameDetails();
+        break;
+
     case '/profile/game/remove':
         $controller = new GameController();
         $controller->removeFromLibrary();

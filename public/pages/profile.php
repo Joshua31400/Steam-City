@@ -23,6 +23,67 @@ function formatAchievementDate($date)
     <link rel="stylesheet" href="/style/profile.css">
     <script src="/assets/js/profile-modal.js"></script>
     <script src="/assets/js/gradient-mouse.js"></script>
+    <script src="/assets/js/game-details-modal.js"></script>
+
+    <style>
+    /* Game Details Modal - Minimal Style */
+    #gameDetailsModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow-y: auto;
+    }
+
+    #gameDetailsModal > div {
+    position: relative;
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    }
+
+    #gameDetailsLoading {
+    text-align: center;
+    padding: 40px;
+    }
+
+    /* Spinner basique */
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    .modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+    }
+
+    .achievement-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    }
+
+    .achievement-item.unlocked {
+    background: #f0fff0;
+    }
+
+    .achievement-item.locked {
+    opacity: 0.6;
+    }
+    "
+    </style>
 </head>
 <body>
 <header class="main-header">
@@ -97,7 +158,9 @@ function formatAchievementDate($date)
                         <h3><?= escape($game['name']) ?></h3>
                         <p>Start: <?= date('d/m/Y', strtotime($game['start_date'])) ?></p>
                         <p>Play time: <?= escape($game['play_time']) ?>h</p>
-                        <a href="/game/details?id=<?= $game['game_id'] ?>">Details</a>
+                        <button onclick="showGameDetails(<?= $game['id'] ?>)" class="btn-details">
+                            Details
+                        </button>
                     </article>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -143,6 +206,24 @@ function formatAchievementDate($date)
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+<div id="gameDetailsModal">
+    <div>
+        <button class="modal-close-btn" onclick="closeGameDetailsModal()">×</button>
+        <img id="gameDetailImage" src="" alt="" style="max-width:100%;">
+        <h2 id="gameDetailName"></h2>
+        <p><strong>Type:</strong> <span id="gameDetailType"></span></p>
+        <p id="gameDetailDescription"></p>
+        <h3>Statistics</h3>
+        <p>Play Time: <span id="gameDetailPlayTime"></span></p>
+        <p>Start Date: <span id="gameDetailStartDate"></span></p>
+        <p>Days Played: <span id="gameDetailDaysPlayed"></span></p>
+        <p>Last Death: <span id="gameDetailLastDeath"></span></p>
+        <h3>Achievements</h3>
+        <p id="gameDetailAchievementProgress"></p>
+        <div id="gameDetailAchievements"></div>
     </div>
 </div>
 </body>

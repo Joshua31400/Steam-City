@@ -103,4 +103,106 @@ class ProfileController {
 
         redirect('/profile');
     }
+
+    // Get game details for a specific game in the user's library, including achievements and stats, to display in a modal on the profile page
+    // This method is called via AJAX when the user clicks on a game in their library to view details with json response
+    public function getGameDetails() {
+        AuthMiddleware::requireAuth();
+
+        header('Content-Type: application/json');
+
+        $userGameId = $_GET['id'] ?? null;
+
+        if (!$userGameId) {
+            echo json_encode(['error' => 'Invalid game ID']);
+            exit;
+        }
+
+        try {
+            // Get game details from user_games and games tables
+            $query = "SELECT 
+                    ug.id as user_game_id,
+                    ug.start_date,
+                    ug.play_time,
+                    ug.death_date,
+                    ug.added_at,
+                    g.id as game_id,
+                    g.name as game_name,
+                    g.description,
+                    g.type,
+                    g.image_url
+                  FROM user_games ug
+                  JOIN games g ON ug.game_id = g.id
+                  WHERE ug.id = :user_game_id AND ug.user_id = :user_id
+                  LIMIT 1";
+
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':user_game_id', $userGameId);
+            $stmt->bindParam(':user_id', $_SESSION['user_id']);
+            $stmt->execute();
+
+            $gameDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$gameDetails) {
+                echo json_encode(['error' => 'Game not found']);
+                exit;
+            }
+
+            // Get user achievements for this game
+            $achievementQuery = "SELECT 
+                                a.id,
+                                a.name,
+                                a.description,
+                                a.icon_url,
+                                ua.unlocked_at,
+                                CASE WHEN ua.id IS NOT NULL THEN 1 ELSE 0 END as unlocked
+                             FROM achievements a
+                             LEFT JOIN user_achievements ua ON a.id = ua.achievement_id AND ua.user_id = :user_id
+                             WHERE a.game_id = :game_id
+                             ORDER BY unlocked DESC, a.name ASC";
+
+            $achStmt = $this->db->prepare($achievementQuery);
+            $achStmt->bindParam(':user_id', $_SESSION['user_id']);
+            $achStmt->bindParam(':game_id', $gameDetails['game_id']);
+            $achStmt->execute();
+
+            $achievements = $achStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Calculate achievement stats for the game
+            $totalAchievements = count($achievements);
+            $unlockedAchievements = count(array_filter($achievements, function($a) {
+                return $a['unlocked'] == 1;
+            }));
+            $achievementPercentage = $totalAchievements > 0 ? round(($unlockedAchievements / $totalAchievements) * 100) : 0;
+
+            // Construct response with game details, achievements, and stats
+            $response = [
+                'success' => true,
+                'game' => $gameDetails,
+                'achievements' => $achievements,
+                'stats' => [
+                    'total_achievements' => $totalAchievements,
+                    'unlocked_achievements' => $unlockedAchievements,
+                    'achievement_percentage' => $achievementPercentage,
+                    'days_played' => $this->calculateDaysPlayed($gameDetails['start_date']),
+                    'last_death' => $gameDetails['death_date'] ? date('d/m/Y', strtotime($gameDetails['death_date'])) : 'Still alive'
+                ]
+            ];
+
+            echo json_encode($response);
+            exit;
+
+        } catch (Exception $e) {
+            echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+            exit;
+        }
+    }
+
+// Calculate the number of days the user has been playing a game based on the start date
+    private function calculateDaysPlayed($startDate) {
+        $start = new DateTime($startDate);
+        $now = new DateTime();
+        $diff = $start->diff($now);
+        return $diff->days;
+    }
 }

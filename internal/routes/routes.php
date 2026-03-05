@@ -24,7 +24,7 @@ switch ($request) {
         $controller->login();
         break;
 
-    case '/signup':
+    case '/sign-in':
         $controller = new AuthController();
         $controller->showSignIn();
         break;
@@ -138,6 +138,22 @@ switch ($request) {
     case '/admin/game/delete':
         $controller = new AdminController();
         $controller->deleteGame();
+        break;
+
+    // ADMIN ACHIEVEMENT CRUD
+    case '/admin/achievement/create':
+        $controller = new AdminController();
+        $controller->createAchievement();
+        break;
+
+    case '/admin/achievement/update':
+        $controller = new AdminController();
+        $controller->updateAchievement();
+        break;
+
+    case '/admin/achievement/delete':
+        $controller = new AdminController();
+        $controller->deleteAchievement();
         break;
 
     // PROFILE GAME EDIT

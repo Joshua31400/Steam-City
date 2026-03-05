@@ -10,6 +10,7 @@ class AdminController {
     private $db;
     private $userModel;
     private $gameModel;
+    private $achievementModel;
 
     // Constructor to initialize database connection and models
     public function __construct() {
@@ -17,6 +18,7 @@ class AdminController {
         $this->db = $database->getConnection();
         $this->userModel = new User($this->db);
         $this->gameModel = new Game($this->db);
+        $this->achievementModel = new Achievement($this->db);
     }
 
     // Display the admin dashboard with user and game management tables
@@ -25,6 +27,7 @@ class AdminController {
 
         $users = $this->userModel->getAll();
         $games = $this->gameModel->getAll();
+        $achievements = $this->achievementModel->getAll();
         $totalUsers = count($users);
         $totalGames = count($games);
 
@@ -204,6 +207,113 @@ class AdminController {
             $_SESSION['success'] = 'Game deleted successfully';
         } else {
             $_SESSION['error'] = 'Error deleting game';
+        }
+
+        redirect('/admin');
+    }
+
+    public function createAchievement() {
+        AuthMiddleware::requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/admin');
+        }
+
+        $gameId = $_POST['game_id'] ?? null;
+        $name = sanitizeInput($_POST['name'] ?? '');
+        $description = sanitizeInput($_POST['description'] ?? '');
+        $iconUrl = sanitizeInput($_POST['icon_url'] ?? '');
+
+        if (!$gameId || !validateRequired($name)) {
+            $_SESSION['error'] = 'Game and achievement name are required';
+            redirect('/admin');
+        }
+
+        // Vérifier que le jeu existe
+        $game = $this->gameModel->getById($gameId);
+        if (!$game) {
+            $_SESSION['error'] = 'Invalid game selected';
+            redirect('/admin');
+        }
+
+        $query = "INSERT INTO achievements (game_id, name, description, icon_url) 
+              VALUES (:game_id, :name, :description, :icon_url)";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':game_id', $gameId);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':icon_url', $iconUrl);
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = 'Achievement created successfully';
+        } else {
+            $_SESSION['error'] = 'Error creating achievement';
+        }
+
+        redirect('/admin');
+    }
+
+    public function updateAchievement() {
+        AuthMiddleware::requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/admin');
+        }
+
+        $achievementId = $_POST['achievement_id'] ?? null;
+        $gameId = $_POST['game_id'] ?? null;
+        $name = sanitizeInput($_POST['name'] ?? '');
+        $description = sanitizeInput($_POST['description'] ?? '');
+        $iconUrl = sanitizeInput($_POST['icon_url'] ?? '');
+
+        if (!$achievementId || !$gameId || !validateRequired($name)) {
+            $_SESSION['error'] = 'Invalid data';
+            redirect('/admin');
+        }
+
+        $query = "UPDATE achievements 
+              SET game_id = :game_id, name = :name, description = :description, icon_url = :icon_url 
+              WHERE id = :id";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':game_id', $gameId);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':icon_url', $iconUrl);
+        $stmt->bindParam(':id', $achievementId);
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = 'Achievement updated successfully';
+        } else {
+            $_SESSION['error'] = 'Error updating achievement';
+        }
+
+        redirect('/admin');
+    }
+
+    public function deleteAchievement() {
+        AuthMiddleware::requireAdmin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/admin');
+        }
+
+        $achievementId = $_POST['achievement_id'] ?? null;
+
+        if (!$achievementId) {
+            $_SESSION['error'] = 'Invalid achievement';
+            redirect('/admin');
+        }
+
+        $query = "DELETE FROM achievements WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $achievementId);
+
+        if ($stmt->execute()) {
+            $_SESSION['success'] = 'Achievement deleted successfully';
+        } else {
+            $_SESSION['error'] = 'Error deleting achievement';
         }
 
         redirect('/admin');

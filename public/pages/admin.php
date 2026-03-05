@@ -108,6 +108,39 @@
             </table>
             <button onclick="showAddGameModal()">+ Add Game</button>
         </section>
+
+        <!-- ACHIEVEMENTS TABLE -->
+        <section class="admin-section">
+            <h2>Achievements Management</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($achievements as $a): ?>
+                    <tr>
+                        <td><?= escape($a['game_name'] ?? 'Unknown') ?></td>
+                        <td><?= escape($a['name']) ?></td>
+                        <td><?= escape($a['description']) ?></td>
+                        <td>
+                            <button onclick="editAchievement(<?= $a['id'] ?>, <?= $a['game_id'] ?>, '<?= escape($a['name']) ?>', '<?= escape($a['description']) ?>', '<?= escape($a['icon_url'] ?? '') ?>')">Edit</button>
+                            <form action="/admin/achievement/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="achievement_id" value="<?= $a['id'] ?>">
+                                <button type="submit" onclick="return confirm('Delete this achievement?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button onclick="showAddAchievementModal()">+ Add Achievement</button>
+        </section>
+
     </div>
 </main>
 
@@ -153,5 +186,36 @@
         <button type="button" onclick="closeGameModal()">Cancel</button>
     </form>
 </div>
+
+<!-- ACHIEVEMENT MODAL -->
+<div id="achievementModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <h3 id="achievementModalTitle">Add Achievement</h3>
+    <form id="achievementForm" action="/admin/achievement/create" method="POST">
+        <input type="hidden" name="achievement_id" id="achievementId">
+        <div>
+            <label>Game</label>
+            <div class="custom-select-wrapper">
+                <input type="hidden" name="game_id" id="achievementGameId" value="">
+                <div class="custom-select" id="customGameSelect">
+                    <div class="custom-select-trigger">
+                        <span id="selectedGameText">Select a game</span>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="custom-options">
+                        <?php foreach ($games as $g): ?>
+                            <div class="custom-option" data-value="<?= $g['id'] ?>"><?= escape($g['name']) ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div><label>Name</label><input type="text" name="name" id="achievementName" required></div>
+        <div><label>Description</label><textarea name="description" id="achievementDescription"></textarea></div>
+        <div><label>Icon URL</label><input type="text" name="icon_url" id="achievementIconUrl" placeholder="/assets/images/achievements/..."></div>
+        <button type="submit">Save</button>
+        <button type="button" onclick="closeAchievementModal()">Cancel</button>
+    </form>
+</div>
+
 </body>
 </html>

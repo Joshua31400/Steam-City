@@ -19,7 +19,7 @@ class AuthController {
     }
 
     public function showSignIn() {
-        require PUBLIC_PATH . '/pages/sign-in.html';
+        require PUBLIC_PATH . '/pages/sign-in.php';
     }
 
     // Longin process for users
@@ -64,39 +64,33 @@ class AuthController {
 
     // Registration process for new users
     public function register() {
-        // Only allow POST requests for registration
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            redirect('/signup');
+            redirect('/sign-in');
         }
 
-        // Sanitize and validate input data
         $email = sanitizeInput($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
 
-        // Validate email and password
         if (!validateEmail($email)) {
             $_SESSION['error'] = 'Email invalide';
-            redirect('/signup');
+            redirect('/sign-in');
         }
 
-        // Validate password strength
         if (!validatePassword($password)) {
             $_SESSION['error'] = 'Le mot de passe doit contenir au moins 8 caractères';
-            redirect('/signup');
+            redirect('/sign-in');
         }
 
-        // Check if passwords match
         if ($password !== $confirmPassword) {
             $_SESSION['error'] = 'Les mots de passe ne correspondent pas';
-            redirect('/signup');
+            redirect('/sign-in');
         }
 
-        // Verify if the email is already registered
         $this->userModel->email = $email;
         if ($this->userModel->findByEmail()) {
             $_SESSION['error'] = 'Cet email est déjà utilisé';
-            redirect('/signup');
+            redirect('/sign-in');
         }
 
         // Create new user in the database
@@ -112,7 +106,7 @@ class AuthController {
             redirect('/login');
         } else {
             $_SESSION['error'] = 'Erreur lors de la création du compte';
-            redirect('/signup');
+            redirect('/sign-in');
         }
     }
 

@@ -6,165 +6,23 @@ require_once BASE_PATH . '/internal/controllers/ProfileController.php';
 require_once BASE_PATH . '/internal/controllers/AdminController.php';
 require_once BASE_PATH . '/internal/controllers/OAuthController.php';
 
-// Get the current request URI and remove query parameters for routing
 $request = $_SERVER['REQUEST_URI'] ?? '/';
-$request = parse_url($request, PHP_URL_PATH) ?? '/'; // Remove query string for cleaner routing
+$request = parse_url($request, PHP_URL_PATH) ?? '/';
 
-// Routes mapping
-switch ($request) {
-    // AUTH ROUTES
-    case '/':
-    case '/login':
-        $controller = new AuthController();
-        $controller->showLogin();
-        break;
+$routes = array_merge(
+    require __DIR__ . '/auth-routes.php',
+    require __DIR__ . '/oauth-routes.php',
+    require __DIR__ . '/game-routes.php',
+    require __DIR__ . '/profile-routes.php',
+    require __DIR__ . '/admin-routes.php'
+);
 
-    case '/login/process':
-        $controller = new AuthController();
-        $controller->login();
-        break;
+$errorHandlers = require __DIR__ . '/errors/errors-routes.php';
 
-    case '/sign-in':
-        $controller = new AuthController();
-        $controller->showSignIn();
-        break;
-
-    case '/register':
-        $controller = new AuthController();
-        $controller->register();
-        break;
-
-    case '/logout':
-        $controller = new AuthController();
-        $controller->logout();
-        break;
-
-    // OAUTH ROUTES
-    case '/auth/google':
-        $controller = new OAuthController();
-        $controller->redirectToGoogle();
-        break;
-
-    case '/auth/google/callback':
-        $controller = new OAuthController();
-        $controller->handleGoogleCallback();
-        break;
-
-    case '/auth/github':
-        $controller = new OAuthController();
-        $controller->redirectToGithub();
-        break;
-
-    case '/auth/github/callback':
-        $controller = new OAuthController();
-        $controller->handleGithubCallback();
-        break;
-
-    // HOME & LIBRARY ROUTES
-    case '/home':
-        $controller = new GameController();
-        $controller->showHome();
-        break;
-
-    case '/game/add':
-        $controller = new GameController();
-        $controller->addToLibrary();
-        break;
-
-    // PROFILE ROUTES
-    case '/profile':
-        $controller = new ProfileController();
-        $controller->showProfile();
-        break;
-
-    case '/profile/update':
-        $controller = new ProfileController();
-        $controller->updateProfile();
-        break;
-
-    case '/profile/game/details':
-        $controller = new ProfileController();
-        $controller->GetGameDetails();
-        break;
-
-    case '/profile/game/remove':
-        $controller = new GameController();
-        $controller->removeFromLibrary();
-        break;
-
-    // ADMIN ROUTES
-    case '/admin':
-        $controller = new AdminController();
-        $controller->showDashboard();
-        break;
-
-    case '/admin/users':
-        $controller = new AdminController();
-        $controller->manageUsers();
-        break;
-
-    case '/admin/games':
-        $controller = new AdminController();
-        $controller->manageGames();
-        break;
-
-    // ADMIN USER CRUD
-    case '/admin/user/create':
-        $controller = new AdminController();
-        $controller->createUser();
-        break;
-
-    case '/admin/user/update':
-        $controller = new AdminController();
-        $controller->updateUser();
-        break;
-
-    case '/admin/user/delete':
-        $controller = new AdminController();
-        $controller->deleteUser();
-        break;
-
-    // ADMIN GAME CRUD
-    case '/admin/game/create':
-        $controller = new AdminController();
-        $controller->createGame();
-        break;
-
-    case '/admin/game/update':
-        $controller = new AdminController();
-        $controller->updateGame();
-        break;
-
-    case '/admin/game/delete':
-        $controller = new AdminController();
-        $controller->deleteGame();
-        break;
-
-    // ADMIN ACHIEVEMENT CRUD
-    case '/admin/achievement/create':
-        $controller = new AdminController();
-        $controller->createAchievement();
-        break;
-
-    case '/admin/achievement/update':
-        $controller = new AdminController();
-        $controller->updateAchievement();
-        break;
-
-    case '/admin/achievement/delete':
-        $controller = new AdminController();
-        $controller->deleteAchievement();
-        break;
-
-    // PROFILE GAME EDIT
-    case '/profile/game/edit':
-        $controller = new ProfileController();
-        $controller->editUserGame();
-        break;
-
-    // ERRORS
-    default:
-        http_response_code(404);
-        echo '404 - Page not found';
-        break;
+if (isset($routes[$request])) {
+    [$controllerClass, $method] = $routes[$request];
+    $controller = new $controllerClass();
+    $controller->$method();
+} else {
+    $errorHandlers[404]();
 }
